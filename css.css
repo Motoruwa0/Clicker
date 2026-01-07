@@ -1,0 +1,18 @@
+body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #1f1f1f, #121212);
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.tab {
+  background: #2a2a2a;
+  padding: 25px;
+  border-radius: 15px;
+  width: 350px;
+  text-align: center; /* wszystko wyśrodkowane */
+  box-shadow: 0 0 30px rgba(0,0,0,0.6);
+}
