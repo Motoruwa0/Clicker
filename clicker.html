@@ -1,47 +1,45 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-  <meta charset="UTF-8" />
-  <title> Clicker</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <title>Clicker Game</title>
+  <link rel="stylesheet" href="css.css">
 </head>
 <body>
+
+  <div class="tab">
 
     <h1 class="title">🔥 CLICKER GAME 🔥</h1>
 
     <div class="points-box">
-      <p class="points-label">Punkty</p>
-      <p class="points-value">0</p>
+      <p>Punkty:</p>
+      <span id="points">0</span>
     </div>
 
-    <button class="click-button">
-      KLIKNIJ
-    </button>
+    
+    <img src="kasa.png" alt="Click me" id="clickImage" class="click-image">
 
     <div class="upgrades">
       <h2>Ulepszenia</h2>
 
       <div class="upgrade">
         <span>+1 punkt / klik</span>
-        <button disabled>100 pkt</button>
+        <button id="upgradeClick" data-cost="50">50 pkt</button>
       </div>
 
       <div class="upgrade">
         <span>Auto-clicker</span>
-        <button disabled>250 pkt</button>
+        <button id="autoClick" data-cost="200">200 pkt</button>
       </div>
 
       <div class="upgrade">
         <span>Mnożnik x2</span>
-        <button disabled>500 pkt</button>
+        <button id="multiplier" data-cost="500">500 pkt</button>
       </div>
     </div>
 
-    <footer>
-      <p>Wersja demo – logika zostanie dodana</p>
-    </footer>
-
   </div>
 
+  <script src="java.js"></script>
 </body>
 </html>
