@@ -10,21 +10,21 @@ const upgrades = [
         baseCost: 15,
         production: 1,
         count: 0,
-        emoji://emotki później sie zrobi
+        emoji: "👵"
     },
     {
-       name: `Lokaj Batmana`,
+        name: `Lokaj Batmana`,
         baseCost: 100,
         production: 8,
         count: 0,
-        emoji:  //później
+        emoji: "🦇"
     },
     {
-        name:  `Pomidor`,
+        name: `Pomidor`,
         baseCost: 50000,
         production: 2137,
         count: 0,
-        emoji:  //później
+        emoji: "🍅"
     },
 ];
 
@@ -43,7 +43,7 @@ coockieBtn.addEventListener(`click`, () => {
 });
 
 function getUpgradeCost(upgrade) {
-    return Math.floor(upgrade.basecost * Math.pow(1.15, upgrade.count));
+    return Math.floor(upgrade.baseCost * Math.pow(1.15, upgrade.count));
 }
 
 function buyUpgrade(index){
@@ -54,31 +54,31 @@ function buyUpgrade(index){
         cookies -= cost;
         upgrade.count++;
         cookiesPerSecond += upgrade.production;
-        update.display();
+        updateDisplay();
     }
 }
 
 function renderShop() {
     upgradesContainer.innerHTML = '';
 
-    upgrades.forEach((upgrade, index) =>{ 
+    upgrades.forEach((upgrade, index) => { 
         const cost = getUpgradeCost(upgrade);
         const canAfford = cookies >= cost;
 
         const upgradeDiv = document.createElement('div');
-            upgradeDiv.className = `upgrade ${!canAfford ? 'disabled' : ''}`;
-            upgradeDiv.onclick = () => buyUpgrade(index);
+        upgradeDiv.className = `upgrade ${!canAfford ? 'disabled' : ''}`;
+        upgradeDiv.onclick = () => buyUpgrade(index);
 
-            upgradeDiv.innerHTML = `
+        upgradeDiv.innerHTML = `
             <div class='upgrade-name'>${upgrade.emoji} ${upgrade.name}</div>
             <div class='upgrade-info'>
                 <span>Koszt: ${cost}</span>
                 <span>+${upgrade.production}/s</span>
             </div> 
             <div class='upgrade-count'>Posiadane: ${upgrade.count}</div>
-            `;
-            upgradesContainer.appendChild(upgradeDiv);
-        )
+        `;
+
+        upgradesContainer.appendChild(upgradeDiv);
     });
 }
 
@@ -86,7 +86,7 @@ function updateDisplay() {
     scoreEl.textContent = Math.floor(cookies);
     perSecondEl.textContent = cookiesPerSecond.toFixed(1);
     totalClicksEl.textContent = totalClicks;
-    totalCookiesEl.textcontent = Math.floor(totalCookies);
+    totalCookiesEl.textContent = Math.floor(totalCookies);
     renderShop();
 }
 
@@ -97,6 +97,6 @@ setInterval(() => {
         totalCookies += gain;
         updateDisplay();
     }
-}, 100)
+}, 100);
 
 renderShop();
