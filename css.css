@@ -6,12 +6,7 @@ body {
   padding: 0;
 }
 
-
-
-.tab-btn {
-  font-family: cursive;
-}
-
+/* ===== MENU ===== */
 .navbar {
   display: flex;
   justify-content: center;
@@ -34,25 +29,18 @@ body {
   background: #555;
 }
 
-
-
+/* ===== TAB CONTENT ===== */
 .tab-content {
-  display: block;
+  display: none;
   text-align: center;
   padding: 20px;
 }
 
-
-
-.game-container {
-  background: #2a2a2a;
-  padding: 25px;
-  border-radius: 15px;
-  width: 350px;
-  margin: 20px auto;
-  box-shadow: 0 0 30px rgba(0, 0, 0, 0.6);
+.tab-content.active {
+  display: block;
 }
 
+/* ===== CLICKER ===== */
 .title {
   color: #f5c542;
   margin-bottom: 20px;
@@ -65,8 +53,6 @@ body {
   margin-bottom: 20px;
   font-size: 18px;
 }
-
-
 
 .click-image {
   display: block;
@@ -81,27 +67,46 @@ body {
   transform: scale(0.95);
 }
 
+.per-second {
+  margin-bottom: 15px;
+  font-size: 16px;
+  color: #ccc;
+}
 
-
+/* ===== UPGRADES ===== */
 .upgrades h2 {
   color: #f5c542;
   margin-bottom: 10px;
 }
 
 .upgrade {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
   background: #1a1a1a;
   padding: 10px;
   border-radius: 8px;
   margin-bottom: 10px;
 }
 
+.upgrade span {
+  text-align: right;
+  padding-right: 15px;
+  font-size: 14px;
+}
+
 .upgrade button {
+  justify-self: start;
+  margin-left: 15px;
   padding: 6px 10px;
   border: none;
   border-radius: 6px;
   background: #555;
   color: #ccc;
   cursor: pointer;
+}
+
+.upgrade.disabled button {
+  background: #333;
+  cursor: not-allowed;
 }
