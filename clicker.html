@@ -7,37 +7,47 @@
 </head>
 <body>
 
-  <div class="tab">
+ 
+  <nav class="navbar">
+    <button class="tab-btn"  data-tab="game">Ulepszenia</button>
+    <button class="tab-btn"  data-tab="stats">Profil Użytkownika</button>
+    
+  </nav>
 
+  
+  <div class="tab-content" id="game">
     <h1 class="title">🔥 CLICKER GAME 🔥</h1>
-
     <div class="points-box">
       <p>Punkty:</p>
       <span id="points">0</span>
     </div>
-
-    
     <img src="kasa.png" alt="Click me" id="clickImage" class="click-image">
-
     <div class="upgrades">
       <h2>Ulepszenia</h2>
-
       <div class="upgrade">
         <span>+1 punkt / klik</span>
         <button id="upgradeClick" data-cost="50">50 pkt</button>
       </div>
-
       <div class="upgrade">
         <span>Auto-clicker</span>
         <button id="autoClick" data-cost="200">200 pkt</button>
       </div>
-
       <div class="upgrade">
         <span>Mnożnik x2</span>
         <button id="multiplier" data-cost="500">500 pkt</button>
       </div>
     </div>
+  </div>
 
+  <div class="tab-content" id="stats" style="display:none;">
+    <h1>📊 Statystyki</h1>
+    <p>Liczba kliknięć: <span id="clickCount">0</span></p>
+    <p>Punkty zdobyte: <span id="pointsTotal">0</span></p>
+  </div>
+
+  <div class="tab-content" id="settings" style="display:none;">
+    <h1>⚙ Ustawienia</h1>
+    <p>Tu można dodać opcje gry (dźwięki, motywy, itp.)</p>
   </div>
 
   <script src="java.js"></script>
