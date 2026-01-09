@@ -1,0 +1,32 @@
+.upgrades__list {
+  max-width: 360px;
+  margin: 0 auto;
+}
+
+.upgrade {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  background: linear-gradient(145deg, #222, #1a1a1a);
+  padding: 12px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.upgrade:hover {
+  background: linear-gradient(145deg, #2f2f2f, #242424);
+  transform: translateY(-2px);
+}
+
+.upgrade--disabled {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.upgrade__emoji {
+  font-size: 22px;
+}
