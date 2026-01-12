@@ -1,7 +1,7 @@
 .game {
   min-height: calc(100vh - 60px);
 
-  /* ❌ NIE ustawiamy display tutaj */
+ 
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -10,7 +10,7 @@
   text-align: center;
 }
 
-/* === TYTUŁ === */
+
 .game__title {
   font-size: 48px;
   color: #f5c542;
@@ -18,7 +18,7 @@
   text-shadow: 0 0 15px rgba(245, 197, 66, 0.4);
 }
 
-/* === STATYSTYKI === */
+
 .game__stats {
   display: flex;
   gap: 60px;
@@ -30,7 +30,7 @@
   font-weight: bold;
 }
 
-/* === KLIKER === */
+
 .game__clicker {
   width: 300px;
   max-width: 70vw;
@@ -45,3 +45,4 @@
 .game__clicker:active {
   transform: scale(0.92);
 }
+
