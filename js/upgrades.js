@@ -5,7 +5,7 @@ const upgrades = [
   value: 1,
   baseCost: 15,
   count: 0,
-  cps: 0       // ← TO JEST KLUCZ
+  cps: 0      
 },
 
 
@@ -19,3 +19,4 @@ const upgrades = [
   { name: "KASYNO", cps: 2137, baseCost: 150000, count: 0 },
   { name: "Tereska67", cps: 6767, baseCost: 200000, count: 0 }
 ];
+
