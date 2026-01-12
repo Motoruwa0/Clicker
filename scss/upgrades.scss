@@ -1,7 +1,7 @@
-/* === HUD PUNKTÓW (GLOBALNY, NIE SCROLLUJE) === */
+
 .upgrades-hud {
   position: fixed;
-  top: 72px; /* pod paskiem zakładek */
+  top: 72px; 
   left: 50%;
   transform: translateX(-50%);
 
@@ -12,7 +12,7 @@
   border: 2px solid #f5c542;
   border-radius: 16px;
 
-  display: none; /* domyślnie ukryty */
+  display: none;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -21,7 +21,7 @@
   pointer-events: none;
 }
 
-/* WIDOCZNY TYLKO W ULEPSZENIACH */
+
 body.show-upgrades-hud .upgrades-hud {
   display: flex;
 }
@@ -39,19 +39,19 @@ body.show-upgrades-hud .upgrades-hud {
   color: #f5c542;
 }
 
-/* === ULEPSZENIA === */
+
 .upgrades {
   padding: 20px 0 40px;
 }
 
-/* WSPÓLNA KOLUMNA DLA TYTUŁU + LISTY */
+
 .upgrades__wrapper {
   width: 80%;
   max-width: 900px;
   margin: 0 auto;
 }
 
-/* TYTUŁ */
+
 .upgrades__section {
   margin: 20px 0 30px;
   font-size: 26px;
@@ -59,7 +59,7 @@ body.show-upgrades-hud .upgrades-hud {
   text-align: left;
 }
 
-/* LISTA */
+
 .upgrades__list {
   width: 100%;
 }
@@ -86,3 +86,4 @@ body.show-upgrades-hud .upgrades-hud {
   opacity: 0.4;
   pointer-events: none;
 }
+
