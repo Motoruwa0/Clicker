@@ -3,5 +3,6 @@ const state = {
   perSecond: 0,
   totalPoints: 0,
   clicks: 0,
-  upgradesBought: 0
+  upgradesBought: 0,
+  pointsPerClick: 1   
 };

@@ -1,7 +1,7 @@
 
 document.getElementById("clickImage").addEventListener("click", () => {
-  state.points += 1;
-  state.totalPoints += 1;
+  state.points += state.pointsPerClick;
+  state.totalPoints += state.pointsPerClick;
   state.clicks += 1;
   render();
 });
@@ -11,15 +11,22 @@ function buyUpgrade(i) {
   const u = upgrades[i];
   const cost = Math.floor(u.baseCost * Math.pow(1.15, u.count));
 
-  if (state.points >= cost) {
-    state.points -= cost;
-    u.count += 1;
-    state.perSecond += u.cps;
-    state.upgradesBought += 1;
+  if (state.points < cost) return;
 
-    render();
+  state.points -= cost;
+  u.count += 1;
+  state.upgradesBought += 1;
+
+  if (u.type === "click") {
+    state.pointsPerClick += u.value;
   }
+
+  state.perSecond += u.cps; // cps = 0 dla kliknięć → OK
+
+  render();
 }
+
+
 
 
 setInterval(() => {

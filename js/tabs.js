@@ -1,8 +1,24 @@
-document.querySelectorAll(".nav__btn").forEach(btn => {
-  btn.onclick = () => {
-    document.querySelectorAll(".tab").forEach(t => t.classList.remove("tab--active"));
-    document.querySelectorAll(".nav__btn").forEach(b => b.classList.remove("nav__btn--active"));
-    document.getElementById(btn.dataset.tab).classList.add("tab--active");
-    btn.classList.add("nav__btn--active");
-  };
+const buttons = document.querySelectorAll(".nav__btn");
+const tabs = document.querySelectorAll(".tab");
+
+buttons.forEach(button => {
+  button.addEventListener("click", () => {
+    const tabId = button.dataset.tab;
+
+    // aktywna zakładka
+    tabs.forEach(tab => {
+      tab.classList.toggle("tab--active", tab.id === tabId);
+    });
+
+    // aktywny przycisk
+    buttons.forEach(btn => {
+      btn.classList.toggle("nav__btn--active", btn === button);
+    });
+
+    // HUD tylko w Ulepszeniach
+    document.body.classList.toggle(
+      "show-upgrades-hud",
+      tabId === "upgrades"
+    );
+  });
 });

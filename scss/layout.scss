@@ -1,17 +1,28 @@
+/* ============================= */
+/* ========== NAVBAR =========== */
+/* ============================= */
+
 .nav {
+  height: 60px;
   display: flex;
-  justify-content: center;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 16px;
   background: #222;
-  padding: 10px;
+}
+
+.nav__tabs {
+  display: flex;
+  gap: 6px;
 }
 
 .nav__btn {
   background: #333;
   color: #fff;
   border: none;
-  margin: 0 5px;
-  padding: 10px 20px;
-  border-radius: 6px;
+  padding: 10px 18px;
+  border-radius: 8px;
   cursor: pointer;
 }
 
@@ -19,42 +30,57 @@
   background: #555;
 }
 
-.tab {
-  display: none;
-  text-align: center;
-  padding: 30px;
-}
+/* ===== LICZNIK PUNKTÓW ===== */
 
-.tab--active {
-  display: block;
-}
-.nav {
+.nav-points {
+  width: 220px;
+  height: 42px;
+
+  background: rgba(20, 20, 20, 0.95);
+  border: 2px solid #f5c542;
+  border-radius: 12px;
+
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  background: #222;
-  padding: 10px;
+  align-items: center;
 }
 
-.nav__btn {
-  background: #333;
-  color: #fff;
-  border: none;
-  margin: 0 5px;
-  padding: 10px 20px;
-  border-radius: 6px;
-  cursor: pointer;
+.nav-points__label {
+  font-size: 11px;
+  color: #aaa;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
-.nav__btn--active {
-  background: #555;
+.nav-points__value {
+  font-size: 20px;
+  font-weight: bold;
+  color: #f5c542;
 }
+
+/* ============================= */
+/* ============ APP ============ */
+/* ============================= */
+
+.app {
+  position: relative;
+  height: calc(100vh - 60px);
+  overflow: hidden;
+}
+
+/* ============================= */
+/* ======== ZAKŁADKI =========== */
+/* ============================= */
 
 .tab {
+  position: absolute;
+  inset: 0;
+
   display: none;
-  text-align: center;
-  padding: 30px;
+  overflow-y: auto;
 }
 
 .tab--active {
-  display: block;
+  display: flex;
 }
