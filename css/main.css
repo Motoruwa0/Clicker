@@ -8,9 +8,6 @@ body {
   font-family: cursive;
 }
 
-/* ============================= */
-/* ========== NAVBAR =========== */
-/* ============================= */
 .nav {
   height: 60px;
   display: flex;
@@ -38,7 +35,7 @@ body {
   background: #555;
 }
 
-/* ===== LICZNIK PUNKTÓW ===== */
+
 .nav-points {
   width: 220px;
   height: 42px;
@@ -64,18 +61,14 @@ body {
   color: #f5c542;
 }
 
-/* ============================= */
-/* ============ APP ============ */
-/* ============================= */
+
 .app {
   position: relative;
   height: calc(100vh - 60px);
   overflow: hidden;
 }
 
-/* ============================= */
-/* ======== ZAKŁADKI =========== */
-/* ============================= */
+
 .tab {
   position: absolute;
   inset: 0;
@@ -87,10 +80,10 @@ body {
   display: flex;
 }
 
-/* === HUD PUNKTÓW (GLOBALNY, NIE SCROLLUJE) === */
+
 .upgrades-hud {
   position: fixed;
-  top: 72px; /* pod paskiem zakładek */
+  top: 72px; 
   left: 50%;
   transform: translateX(-50%);
   width: 300px;
@@ -98,7 +91,7 @@ body {
   background: rgba(20, 20, 20, 0.95);
   border: 2px solid #f5c542;
   border-radius: 16px;
-  display: none; /* domyślnie ukryty */
+  display: none; 
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -106,7 +99,7 @@ body {
   pointer-events: none;
 }
 
-/* WIDOCZNY TYLKO W ULEPSZENIACH */
+
 body.show-upgrades-hud .upgrades-hud {
   display: flex;
 }
@@ -124,19 +117,19 @@ body.show-upgrades-hud .upgrades-hud {
   color: #f5c542;
 }
 
-/* === ULEPSZENIA === */
+
 .upgrades {
   padding: 20px 0 40px;
 }
 
-/* WSPÓLNA KOLUMNA DLA TYTUŁU + LISTY */
+
 .upgrades__wrapper {
   width: 80%;
   max-width: 900px;
   margin: 0 auto;
 }
 
-/* TYTUŁ */
+
 .upgrades__section {
   margin: 20px 0 30px;
   font-size: 26px;
@@ -144,7 +137,6 @@ body.show-upgrades-hud .upgrades-hud {
   text-align: left;
 }
 
-/* LISTA */
 .upgrades__list {
   width: 100%;
 }
@@ -173,7 +165,7 @@ body.show-upgrades-hud .upgrades-hud {
 
 .game {
   min-height: calc(100vh - 60px);
-  /* ❌ NIE ustawiamy display tutaj */
+
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -181,7 +173,7 @@ body.show-upgrades-hud .upgrades-hud {
   text-align: center;
 }
 
-/* === TYTUŁ === */
+
 .game__title {
   font-size: 48px;
   color: #f5c542;
@@ -189,7 +181,7 @@ body.show-upgrades-hud .upgrades-hud {
   text-shadow: 0 0 15px rgba(245, 197, 66, 0.4);
 }
 
-/* === STATYSTYKI === */
+
 .game__stats {
   display: flex;
   gap: 60px;
@@ -201,7 +193,7 @@ body.show-upgrades-hud .upgrades-hud {
   font-weight: bold;
 }
 
-/* === KLIKER === */
+
 .game__clicker {
   width: 300px;
   max-width: 70vw;
@@ -217,4 +209,4 @@ body.show-upgrades-hud .upgrades-hud {
   transform: scale(0.92);
 }
 
-/*# sourceMappingURL=main.css.map */
+
