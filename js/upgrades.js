@@ -1,5 +1,5 @@
 const upgrades = [
-  { name: "Kursor", cps: 1, baseCost: 10, count: 0 },
+  { name: "Żepyga", cps: 1, baseCost: 10, count: 0 },
   { name: "Babuszka", cps: 10, baseCost: 100, count: 0 },
   { name: "Trenbolon", cps: 50, baseCost: 800, count: 0 },
   { name: "El Gato", cps: 100, baseCost: 2000, count: 0 },
@@ -9,3 +9,4 @@ const upgrades = [
   { name: "KASYNO", cps: 2137, baseCost: 150000, count: 0 },
   {name: "Tereska67", cps: 6767, baseCost: 200000, count: 0 }
 ];
+

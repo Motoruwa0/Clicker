@@ -1,4 +1,3 @@
-<<<<<<< HEAD:Clicker/scss/upgrades.scss
 .upgrades {
   min-height: calc(100vh - 60px);
   display: flex;
@@ -44,50 +43,3 @@
 .upgrade__emoji {
   font-size: 22px;
 }
-=======
-.upgrades {
-  min-height: calc(100vh - 60px);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.upgrades__title {
-  text-align: center;
-  color: #f5c542;
-  margin-bottom: 20px;
-}
-
-.upgrades__list {
-  width: 360px;
-  margin: 0 auto;
-}
-
-.upgrade {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  background: #1a1a1a;
-  padding: 12px;
-  border-radius: 10px;
-  margin-bottom: 12px;
-
-  cursor: pointer;
-  transition: 0.2s;
-}
-
-.upgrade:hover {
-  background: #2a2a2a;
-  transform: translateY(-2px);
-}
-
-.upgrade--disabled {
-  opacity: 0.4;
-  pointer-events: none;
-}
-
-.upgrade__emoji {
-  font-size: 22px;
-}
->>>>>>> 8e7d3c0e831517c931adbc6931f1c7919c629bcc:scss/upgrades.scss
