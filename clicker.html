@@ -8,13 +8,13 @@ ss<!DOCTYPE html>
 <body>
 
 <nav class="nav">
-  <button class="nav__btn nav__btn--active" data-tab="game">Gra</button>
-  <button class="nav__btn" data-tab="upgrades">Ulepszenia</button>
-  <button class="nav__btn" data-tab="stats">Statystyki</button>
+  <button class="nav__btn nav__btn--active" data-tab="game" href="#maslo">Gra</button>
+  <button class="nav__btn" data-tab="upgrades" href="#sól">Ulepszenia</button>
+  <button class="nav__btn" data-tab="stats"href="#pomidor">Statystyki</button>
 </nav>
 
 <section class="tab tab--active game" id="game">
-  <h1 class="game__title">🔥 CLICKER GAME 🔥</h1>
+  <h1 class="game__title"><a id="maslo">🔥 CLICKER GAME 🔥</a></h1>
 
   <div class="game__stats">
     <div>Punkty: <span id="points">0</span></div>
@@ -25,12 +25,12 @@ ss<!DOCTYPE html>
 </section>
 
 <section class="tab upgrades" id="upgrades">
-  <h1>🛒 Ulepszenia</h1>
+  <h1><a id="sól"🛒 >Ulepszenia</a></h1>
   <div id="upgradesContainer"></div>
 </section>
 
 <section class="tab stats" id="stats">
-  <p>Kliknięcia: <span id="clickCount">0</span></p>
+  <p><a id="pomidor">Kliknięcia: <span id="clickCount">0</span></a></p>
   <p>Ulepszenia: <span id="upgradeCount">0</span></p>
   <p>Punkty łącznie: <span id="totalPoints">0</span></p>
 </section>
@@ -43,7 +43,3 @@ ss<!DOCTYPE html>
 <script src="js/tabs.js"></script>
 
 </html>
-
-
-
-fff
