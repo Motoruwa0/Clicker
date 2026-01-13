@@ -1,11 +1,14 @@
 function render() {
   const pointsEl = document.getElementById("points");
+  const pointsGameEl = document.getElementById("pointsGame");
   const perSecondEl = document.getElementById("perSecond");
   const clickCountEl = document.getElementById("clickCount");
   const upgradeCountEl = document.getElementById("upgradeCount");
   const totalPointsEl = document.getElementById("totalPoints");
 
-  if (pointsEl) pointsEl.textContent = Math.floor(state.points);
+ if (pointsEl) pointsEl.textContent = Math.floor(state.points);
+ if (pointsGameEl) pointsGameEl.textContent = Math.floor(state.points);
+
   if (perSecondEl) perSecondEl.textContent = state.perSecond;
   if (clickCountEl) clickCountEl.textContent = state.clicks;
   if (upgradeCountEl) upgradeCountEl.textContent = state.upgradesBought;
