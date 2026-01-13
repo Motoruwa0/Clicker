@@ -62,7 +62,7 @@ const skins = [
   {
     id: "skin-11",
     name: "Koto-avocado",
-    price: 5000,
+    price: 5001,
     img: "images/Skin11.png"
   },
   {
