@@ -19,4 +19,3 @@ const upgrades = [
   { name: "KASYNO", cps: 2137, baseCost: 150000, count: 0 },
   { name: "Tereska67", cps: 6767, baseCost: 200000, count: 0 }
 ];
-

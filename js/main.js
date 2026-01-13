@@ -21,7 +21,7 @@ function buyUpgrade(i) {
     state.pointsPerClick += u.value;
   }
 
-  state.perSecond += u.cps; // cps = 0 dla kliknięć → OK
+  state.perSecond += u.cps; 
 
   render();
 }

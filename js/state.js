@@ -4,5 +4,8 @@ const state = {
   totalPoints: 0,
   clicks: 0,
   upgradesBought: 0,
-  pointsPerClick: 1   
+  pointsPerClick: 1,
+
+  currentSkin: "default",
+  ownedSkins: ["default"]
 };

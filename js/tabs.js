@@ -5,7 +5,7 @@ buttons.forEach(button => {
   button.addEventListener("click", () => {
     const tabId = button.dataset.tab;
 
-
+   
     tabs.forEach(tab => {
       tab.classList.toggle("tab--active", tab.id === tabId);
     });
@@ -22,4 +22,3 @@ buttons.forEach(button => {
     );
   });
 });
-
