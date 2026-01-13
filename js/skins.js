@@ -120,9 +120,27 @@ const skins = [
     img: "images/Skin15.png"
   },
   {
+    id: "skin-27",
+    name: "Kot w kulkach",
+    price: 100002,
+    img: "images/Skin27.png"
+  },
+  {
+    id: "skin-25",
+    name: "Kwietny pusheen",
+    price: 100000,
+    img: "images/Skin25.png"
+  },
+  {
     id: "skin-4",
     name: "Kot Na Tronie",
     price: 1000000,
     img: "images/Skin7.png"
-  },
+  }, 
+  {
+    id: "skin-26",
+    name: "Kremówka",
+    price: 22113377,
+    img: "images/Skin26.png"
+  }
 ];
