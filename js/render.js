@@ -1,27 +1,38 @@
+function formatNumber(value) {
+  if (value >= 1e12) return (value / 1e12).toFixed(2) + " bln";
+  if (value >= 1e9)  return (value / 1e9).toFixed(2) + " mld";
+  if (value >= 1e6)  return (value / 1e6).toFixed(2) + " mln";
+  if (value >= 1e3)  return (value / 1e3).toFixed(1) + " tys.";
+  return Math.floor(value).toString();
+}
+
 function render() {
   const pointsEl = document.getElementById("points");
   const pointsGameEl = document.getElementById("pointsGame");
-  const perSecondEl = document.getElementById("perSecond");
+
+  const perSecondGameEl = document.getElementById("perSecondGame");
+  const perSecondStatsEl = document.getElementById("perSecondStats");
+
   const clickCountEl = document.getElementById("clickCount");
   const upgradeCountEl = document.getElementById("upgradeCount");
   const totalPointsEl = document.getElementById("totalPoints");
 
- if (pointsEl) pointsEl.textContent = Math.floor(state.points);
- if (pointsGameEl) pointsGameEl.textContent = Math.floor(state.points);
+  if (pointsEl) pointsEl.textContent = formatNumber(state.points);
+  if (pointsGameEl) pointsGameEl.textContent = formatNumber(state.points);
 
-  if (perSecondEl) perSecondEl.textContent = state.perSecond;
+  if (perSecondGameEl) perSecondGameEl.textContent = state.perSecond;
+  if (perSecondStatsEl) perSecondStatsEl.textContent = state.perSecond;
+
   if (clickCountEl) clickCountEl.textContent = state.clicks;
   if (upgradeCountEl) upgradeCountEl.textContent = state.upgradesBought;
-  if (totalPointsEl) totalPointsEl.textContent = Math.floor(state.totalPoints);
+  if (totalPointsEl) totalPointsEl.textContent = formatNumber(state.totalPoints);
 
-  
   const clickImage = document.getElementById("clickImage");
   if (clickImage && typeof skins !== "undefined") {
     const skin = skins.find(s => s.id === state.currentSkin);
     if (skin) clickImage.src = skin.img;
   }
 
- 
   const upgradesContainer = document.getElementById("upgradesContainer");
   if (upgradesContainer) {
     upgradesContainer.innerHTML = "";
@@ -40,7 +51,7 @@ function render() {
 
       div.innerHTML = `
         <div>${u.name}</div>
-        <div>${bonus} | Koszt: ${cost} | Posiadane: ${u.count}</div>
+        <div>${bonus} | Koszt: ${formatNumber(cost)} | Posiadane: ${u.count}</div>
       `;
 
       if (canBuy) {
@@ -51,7 +62,6 @@ function render() {
     });
   }
 
-  
   const skinsContainer = document.getElementById("skinsContainer");
   if (skinsContainer && typeof skins !== "undefined") {
     skinsContainer.innerHTML = "";
@@ -65,7 +75,7 @@ function render() {
       div.innerHTML = `
         <img src="${skin.img}">
         <h3>${skin.name}</h3>
-        <p>${owned ? "Posiadany" : skin.price + " pkt"}</p>
+        <p>${owned ? "Posiadany" : formatNumber(skin.price) + " pkt"}</p>
         <button>${owned ? "Załóż" : "Kup"}</button>
       `;
 
