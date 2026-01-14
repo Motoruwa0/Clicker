@@ -66,6 +66,12 @@ const skins = [
     img: "images/Skin11.png"
   },
   {
+    id: "skin-29",
+    name: "Frytek",
+    price: 5023,
+    img: "images/Skin29.png"
+  },
+  {
     id: "skin-12",
     name: "Kot gamer",
     price: 7500,
@@ -80,7 +86,7 @@ const skins = [
   {
     id: "skin-23",
     name: "Smutny chomik",
-    price: 125000,
+    price: 12500,
     img: "images/Skin23.png"
   },
   {
@@ -100,6 +106,12 @@ const skins = [
     name: "Eric Cartman",
     price: 30000,
     img: "images/Skin20.png"
+  },
+  {
+    id: "skin-28",
+    name: "Szafuńcio",
+    price: 35550,
+    img: "images/Skin28.png"
   },
   {
     id: "skin-13",
@@ -122,8 +134,14 @@ const skins = [
   {
     id: "skin-27",
     name: "Kot w kulkach",
-    price: 100002,
+    price: 75000,
     img: "images/Skin27.png"
+  },
+  {
+    id:"skin30",
+    name: "Kula mocy",
+    price: 100002,
+    img: "images/Skin30.png"
   },
   {
     id: "skin-25",

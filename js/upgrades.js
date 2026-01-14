@@ -5,7 +5,7 @@ const upgrades = [
   value: 1,
   baseCost: 15,
   count: 0,
-  cps: 0      
+  cps: 0     
 },
 
 
