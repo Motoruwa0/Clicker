@@ -6,6 +6,14 @@ function formatNumber(value) {
   return Math.floor(value).toString();
 }
 
+function applyCursor(cursorPath) {
+  if (!cursorPath || cursorPath === "auto") {
+    document.body.style.cursor = "auto";
+  } else {
+    document.body.style.cursor = `url("${cursorPath}") 16 16, auto`;
+  }
+}
+
 function render() {
   const pointsEl = document.getElementById("points");
   const pointsGameEl = document.getElementById("pointsGame");
@@ -90,5 +98,46 @@ function render() {
 
       skinsContainer.appendChild(div);
     });
+  }
+
+  const cursorContainer = document.getElementById("cursorSkinsContainer");
+  if (cursorContainer && typeof cursorSkins !== "undefined") {
+    cursorContainer.innerHTML = "";
+
+    cursorSkins.forEach(cursor => {
+      const owned = state.ownedCursors.includes(cursor.id);
+
+      const div = document.createElement("div");
+      div.className = "skin-card";
+
+     div.innerHTML = `
+  <img src="${cursor.preview || "images/cursor_default.png"}">
+  <h3>${cursor.name}</h3>
+  <p>${owned ? "Posiadany" : formatNumber(cursor.price) + " pkt"}</p>
+  <button>${owned ? "Załóż" : "Kup"}</button>
+`;
+
+
+      div.querySelector("button").onclick = () => {
+        if (!owned && state.points >= cursor.price) {
+          state.points -= cursor.price;
+          state.ownedCursors.push(cursor.id);
+        }
+
+        if (owned || state.points >= cursor.price) {
+          state.currentCursor = cursor.id;
+          applyCursor(cursor.cursor);
+        }
+
+        render();
+      };
+
+      cursorContainer.appendChild(div);
+    });
+  }
+
+  if (typeof cursorSkins !== "undefined") {
+    const activeCursor = cursorSkins.find(c => c.id === state.currentCursor);
+    if (activeCursor) applyCursor(activeCursor.cursor);
   }
 }

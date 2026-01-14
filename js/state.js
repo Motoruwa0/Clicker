@@ -7,5 +7,9 @@ const state = {
   pointsPerClick: 1,
 
   currentSkin: "default",
-  ownedSkins: ["default"]
+  ownedSkins: ["default"],
+
+  currentCursor: "cursor-default",
+ownedCursors: ["cursor-default"],
+
 };
