@@ -138,6 +138,12 @@ const skins = [
     img: "images/Skin27.png"
   },
   {
+    id: "skin-31",
+    name: "Pesek",
+    price: 95000,
+    img: "images/Skin31.png"
+  },
+  {
     id:"skin30",
     name: "Kula mocy",
     price: 100002,
