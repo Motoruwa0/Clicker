@@ -17,6 +17,9 @@ const upgrades = [
   { name: "Gofry z bitą śmietaną", cps: 400, baseCost: 20000, count: 0 },
   { name: "Pomidor", cps: 500, baseCost: 50000, count: 0 },
   { name: "KASYNO", cps: 2137, baseCost: 150000, count: 0 },
-  { name: "Tereska67", cps: 6767, baseCost: 200000, count: 0 }
+  { name: "Tereska67", cps: 6767, baseCost: 200000, count: 0 },
+  { name: "Fryteczki Michała", cps: 2, baseCost: 500000, count: 0},
+  { name: "Miszka lubi jabluko", cps: 9191, baseCost: 750000, count: 0},
+  { name: "Żaba z Krakowa", cps: 10000, baseCost: 100000, count: 0}
 ];
 

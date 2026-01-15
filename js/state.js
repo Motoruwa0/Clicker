@@ -5,11 +5,11 @@ const state = {
   clicks: 0,
   upgradesBought: 0,
   pointsPerClick: 1,
+  rebirths: 0,
+  rebirthMultiplier: 1,
 
   currentSkin: "default",
   ownedSkins: ["default"],
 
-  currentCursor: "cursor-default",
-ownedCursors: ["cursor-default"],
-
+  
 };
