@@ -6,14 +6,6 @@ function formatNumber(value) {
   return Math.floor(value).toString();
 }
 
-function applyCursor(cursorPath) {
-  if (!cursorPath || cursorPath === "auto") {
-    document.body.style.cursor = "auto";
-  } else {
-    document.body.style.cursor = `url("${cursorPath}") 16 16, auto`;
-  }
-}
-
 function render() {
   const pointsEl = document.getElementById("points");
   const pointsGameEl = document.getElementById("pointsGame");
@@ -25,6 +17,9 @@ function render() {
   const upgradeCountEl = document.getElementById("upgradeCount");
   const totalPointsEl = document.getElementById("totalPoints");
 
+  const levelEl = document.getElementById("level");
+  const xpEl = document.getElementById("xp");
+
   if (pointsEl) pointsEl.textContent = formatNumber(state.points);
   if (pointsGameEl) pointsGameEl.textContent = formatNumber(state.points);
 
@@ -34,6 +29,9 @@ function render() {
   if (clickCountEl) clickCountEl.textContent = state.clicks;
   if (upgradeCountEl) upgradeCountEl.textContent = state.upgradesBought;
   if (totalPointsEl) totalPointsEl.textContent = formatNumber(state.totalPoints);
+
+  if (levelEl) levelEl.textContent = state.level;
+  if (xpEl) xpEl.textContent = `${state.xp} / ${state.xpToNextLevel}`;
 
   const clickImage = document.getElementById("clickImage");
   if (clickImage && typeof skins !== "undefined") {
@@ -47,10 +45,15 @@ function render() {
 
     upgrades.forEach((u, i) => {
       const cost = Math.floor(u.baseCost * Math.pow(1.15, u.count));
-      const canBuy = state.points >= cost;
+      const requiredLevel = u.requiredLevel || 1;
+
+      const hasLevel = state.level >= requiredLevel;
+      const canBuy = state.points >= cost && hasLevel;
 
       const div = document.createElement("div");
-      div.className = "upgrade" + (canBuy ? "" : " upgrade--disabled");
+      div.className =
+        "upgrade" +
+        (canBuy ? "" : " upgrade--disabled");
 
       const bonus =
         u.type === "click"
@@ -59,7 +62,12 @@ function render() {
 
       div.innerHTML = `
         <div>${u.name}</div>
-        <div>${bonus} | Koszt: ${formatNumber(cost)} | Posiadane: ${u.count}</div>
+        <div>
+          ${bonus}
+          | Koszt: ${formatNumber(cost)}
+          | Posiadane: ${u.count}
+          ${!hasLevel ? `| Wymagany lvl ${requiredLevel}` : ""}
+        </div>
       `;
 
       if (canBuy) {
@@ -76,6 +84,8 @@ function render() {
 
     skins.forEach(skin => {
       const owned = state.ownedSkins.includes(skin.id);
+      const requiredLevel = skin.requiredLevel || 1;
+      const hasLevel = state.level >= requiredLevel;
 
       const div = document.createElement("div");
       div.className = "skin-card";
@@ -83,16 +93,28 @@ function render() {
       div.innerHTML = `
         <img src="${skin.img}">
         <h3>${skin.name}</h3>
-        <p>${owned ? "Posiadany" : formatNumber(skin.price) + " pkt"}</p>
+        <p>
+          ${
+            owned
+              ? "Posiadany"
+              : !hasLevel
+                ? `Wymagany lvl ${requiredLevel}`
+                : formatNumber(skin.price) + " pkt"
+          }
+        </p>
         <button>${owned ? "Załóż" : "Kup"}</button>
       `;
 
       div.querySelector("button").onclick = () => {
-        if (!owned && state.points >= skin.price) {
+        if (!owned && hasLevel && state.points >= skin.price) {
           state.points -= skin.price;
           state.ownedSkins.push(skin.id);
         }
-        state.currentSkin = skin.id;
+
+        if (owned || hasLevel) {
+          state.currentSkin = skin.id;
+        }
+
         render();
       };
 

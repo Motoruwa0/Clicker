@@ -9,5 +9,10 @@ const state = {
   currentSkin: "default",
   ownedSkins: ["default"],
 
+  level: 1,
+  xp: 0,
+  xpToNextLevel: 50,
+
   
+  _xpFromClicks: 0
 };

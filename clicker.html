@@ -44,7 +44,6 @@
   </section>
 
   <section class="tab stats" id="stats">
-
     <h1 class="stats__title">📊 Statystyki</h1>
 
     <div class="stats__grid">
@@ -67,8 +66,17 @@
         <div class="stats__label">Punkty na sekundę</div>
         <div class="stats__value" id="perSecondStats">0</div>
       </div>
-    </div>
 
+      <div class="stats__card">
+        <div class="stats__label">Poziom</div>
+        <div class="stats__value" id="level">1</div>
+      </div>
+
+      <div class="stats__card">
+        <div class="stats__label">XP</div>
+        <div class="stats__value" id="xp">0 / 100</div>
+      </div>
+    </div>
   </section>
 
   <section class="tab skins" id="skins">
@@ -76,17 +84,16 @@
     <div id="skinsContainer" class="skins__grid"></div>
   </section>
 
-
 </main>
 
 <script src="js/state.js"></script>
 <script src="js/skins.js"></script>
 <script src="js/upgrades.js"></script>
+<script src="js/exp.js"></script>
 <script src="js/render.js"></script>
 <script src="js/storage.js"></script>
 <script src="js/main.js"></script>
 <script src="js/tabs.js"></script>
-
 
 </body>
 </html>

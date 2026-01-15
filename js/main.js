@@ -1,11 +1,13 @@
-
 document.getElementById("clickImage").addEventListener("click", () => {
   state.points += state.pointsPerClick;
   state.totalPoints += state.pointsPerClick;
   state.clicks += 1;
+
+ 
+  addXPFromClicks();
+
   render();
 });
-
 
 function buyUpgrade(i) {
   const u = upgrades[i];
@@ -21,22 +23,21 @@ function buyUpgrade(i) {
     state.pointsPerClick += u.value;
   }
 
-  state.perSecond += u.cps; 
+  state.perSecond += u.cps;
 
   render();
 }
-
-
-
 
 setInterval(() => {
   if (state.perSecond > 0) {
     state.points += state.perSecond;
     state.totalPoints += state.perSecond;
+
+    
+
     render();
   }
 }, 1000);
-
 
 setInterval(() => {
   saveGame();
@@ -46,6 +47,5 @@ window.addEventListener("beforeunload", () => {
   saveGame();
 });
 
-
-loadGame();  
-render();     
+loadGame();
+render();
