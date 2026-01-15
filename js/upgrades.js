@@ -11,7 +11,7 @@ const upgrades = [
   name: "Lepszy kursor 2.0",
   type: "click",
   value: 1000,
-  basecost: 150000,
+  baseCost: 150000,
   count: 0,
   cps: 0
 },
