@@ -7,6 +7,15 @@ const upgrades = [
   count: 0,
   cps: 0     
 },
+{
+  name: "Lepszy kursor 2.0",
+  type: "click",
+  value: 100,
+  basecost: 15000,
+  count: 0,
+  cps: 0
+},
+
 
 
   { name: "Żepyga", cps: 1, baseCost: 10, count: 0 },
@@ -20,6 +29,6 @@ const upgrades = [
   { name: "Tereska67", cps: 6767, baseCost: 200000, count: 0 },
   { name: "Fryteczki Michała", cps: 2, baseCost: 500000, count: 0},
   { name: "Miszka lubi jabluko", cps: 9191, baseCost: 750000, count: 0},
-  { name: "Żaba z Krakowa", cps: 10000, baseCost: 100000, count: 0}
+  { name: "Żaba z Krakowa", cps: 10000, baseCost: 1000000, count: 0}
 ];
 
