@@ -1,6 +1,6 @@
 function addXPFromClicks() {
  
-  const gainedXP = Math.floor(state.clicks / 1) - state._xpFromClicks;
+  const gainedXP = Math.floor(state.clicks / 1.5) - state._xpFromClicks;
 
   if (gainedXP > 0) {
     state._xpFromClicks += gainedXP;
