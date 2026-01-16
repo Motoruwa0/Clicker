@@ -87,3 +87,23 @@ if (resetBtn) {
     resetGame();
   });
 }
+
+
+
+function addTestResources() {
+ 
+  state.points += 1_000_000;
+  state.totalPoints += 1_000_000;
+
+  state.xp += 1_000_000;
+
+
+  while (state.xp >= state.xpToNextLevel) {
+    state.xp -= state.xpToNextLevel;
+    state.level++;
+    state.xpToNextLevel = Math.floor(state.xpToNextLevel * 1.25);
+  }
+
+  saveGame();
+  render();
+}

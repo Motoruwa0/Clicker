@@ -16,3 +16,6 @@ const state = {
   
   _xpFromClicks: 0
 };
+
+
+const DEV_MODE = true;
