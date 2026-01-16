@@ -77,7 +77,7 @@ function render() {
       upgradesContainer.appendChild(div);
     });
   }
-
+ 
   const skinsContainer = document.getElementById("skinsContainer");
   if (skinsContainer && typeof skins !== "undefined") {
     skinsContainer.innerHTML = "";
