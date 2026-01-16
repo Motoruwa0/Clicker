@@ -59,11 +59,14 @@ function resetGame() {
   state.clicks = 0;
   state.upgradesBought = 0;
   state.pointsPerClick = 1;
+  upgradeCountE1 = 0
 
   state.level = 1;
   state.xp = 0;
   state.xpToNextLevel = 50;
   state._xpFromClicks = 0;
+
+  upgrades.forEach(u=> { u.count = 0; });
 
   state.currentSkin = "default";
   state.ownedSkins = ["default"];
