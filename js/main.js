@@ -49,3 +49,38 @@ window.addEventListener("beforeunload", () => {
 
 loadGame();
 render();
+
+
+
+function resetGame() {
+ state.points = 0;
+  state.perSecond = 0;
+  state.totalPoints = 0;
+  state.clicks = 0;
+  state.upgradesBought = 0;
+  state.pointsPerClick = 1;
+
+  state.level = 1;
+  state.xp = 0;
+  state.xpToNextLevel = 50;
+  state._xpFromClicks = 0;
+
+  state.currentSkin = "default";
+  state.ownedSkins = ["default"];
+
+  saveGame();
+  render();
+}
+
+
+const resetBtn = document.getElementById("resetGameBtn");
+
+if (resetBtn) {
+  resetBtn.addEventListener("click", () => {
+    const ok = confirm("Na pewno chcesz zresetować grę?");
+
+    if (!ok) return;
+
+    resetGame();
+  });
+}
