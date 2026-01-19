@@ -31,7 +31,14 @@ function render() {
   if (totalPointsEl) totalPointsEl.textContent = formatNumber(state.totalPoints);
 
   if (levelEl) levelEl.textContent = state.level;
-  if (xpEl) xpEl.textContent = `${state.xp} / ${state.xpToNextLevel}`;
+ if (xpEl) {
+  xpEl.innerHTML = `
+    ${formatNumber(state.xp)}<br>
+    /<br>
+    ${formatNumber(state.xpToNextLevel)}
+  `;
+}
+
 
   const clickImage = document.getElementById("clickImage");
   if (clickImage && typeof skins !== "undefined") {
@@ -77,7 +84,7 @@ function render() {
       upgradesContainer.appendChild(div);
     });
   }
- 
+
   const skinsContainer = document.getElementById("skinsContainer");
   if (skinsContainer && typeof skins !== "undefined") {
     skinsContainer.innerHTML = "";
@@ -120,5 +127,18 @@ function render() {
 
       skinsContainer.appendChild(div);
     });
+  }
+
+ 
+  const rebirthCountEl = document.getElementById("rebirthCount");
+  const rebirthBonusEl = document.getElementById("rebirthBonus");
+  const rebirthStatsEl = document.getElementById("rebirthStats");
+  const rebirthBonusStatsEl = document.getElementById("rebirthBonusStats");
+
+  if (rebirthCountEl) rebirthCountEl.textContent = state.rebirths;
+  if (rebirthBonusEl) rebirthBonusEl.textContent = "x" + state.rebirthBonus.toFixed(2);
+  if (rebirthStatsEl) rebirthStatsEl.textContent = state.rebirths;
+  if (rebirthBonusStatsEl) {
+    rebirthBonusStatsEl.textContent = "x" + state.rebirthBonus.toFixed(2);
   }
 }

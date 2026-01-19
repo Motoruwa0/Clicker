@@ -1,0 +1,52 @@
+.rebirth {
+  flex-direction: column;
+  height: 100%;
+}
+
+
+.rebirth__content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+
+  transform: translateY(60px);
+}
+
+.rebirth__title {
+  text-align: center;
+  font-size: 48px;
+  margin-top: 40px;
+  margin-bottom: 0;
+
+  align-self: center; 
+}
+
+
+.rebirth__info {
+  text-align: center;
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+
+.rebirth__button {
+  font-size: 36px;
+  padding: 30px 80px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, #ffcc33, #ff9900);
+  color: #000;
+  font-weight: 800;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 0 40px rgba(255, 200, 50, 0.4);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.rebirth__button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 60px rgba(255, 200, 50, 0.7);
+}

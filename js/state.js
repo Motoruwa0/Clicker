@@ -13,9 +13,8 @@ const state = {
   xp: 0,
   xpToNextLevel: 50,
 
-  
+  rebirths: 0,
+  rebirthBonus: 1,
+
   _xpFromClicks: 0
 };
-
-
-const DEV_MODE = true;

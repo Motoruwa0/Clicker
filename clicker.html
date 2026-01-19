@@ -14,9 +14,9 @@
     <button class="nav__btn" data-tab="upgrades">Ulepszenia</button>
     <button class="nav__btn" data-tab="stats">Statystyki</button>
     <button class="nav__btn" data-tab="skins">Skins</button>
+    <button class="nav__btn" data-tab="rebirth">Rebirth</button>
   </div>
 
-  <!-- 🔥 PRZYCISK RESETU – PRZENIESIONY W PRAWO -->
   <div class="nav__actions">
     <button id="resetGameBtn" class="reset-btn">
       🔄 Reset gry (TEST)
@@ -32,6 +32,7 @@
 
 <main class="app">
 
+
   <section class="tab tab--active game" id="game">
     <h1 class="game__title">🔥 CLICKER GAME 🔥</h1>
 
@@ -43,6 +44,7 @@
     <img id="clickImage" class="game__clicker" alt="Kliknij">
   </section>
 
+
   <section class="tab upgrades" id="upgrades">
     <div class="upgrades__wrapper">
       <h2 class="upgrades__section">Ulepszenia kliknięcia</h2>
@@ -50,6 +52,7 @@
     </div>
   </section>
 
+ 
   <section class="tab stats" id="stats">
     <h1 class="stats__title">📊 Statystyki</h1>
 
@@ -83,12 +86,40 @@
         <div class="stats__label">XP</div>
         <div class="stats__value" id="xp">0 / 100</div>
       </div>
+
+     
+      <div class="stats__card">
+        <div class="stats__label">Rebirthy</div>
+        <div class="stats__value" id="rebirthStats">0</div>
+      </div>
+
+      <div class="stats__card">
+        <div class="stats__label">Mnożnik Rebirth</div>
+        <div class="stats__value" id="rebirthBonusStats">x1.00</div>
+      </div>
     </div>
   </section>
+
 
   <section class="tab skins" id="skins">
     <h1 class="skins__title">🎨 Sklep skinów</h1>
     <div id="skinsContainer" class="skins__grid"></div>
+  </section>
+
+  
+  <section class="tab rebirth" id="rebirth">
+    <h1 class="rebirth__title">🔥 Rebirth 🔥</h1>
+
+    <p class="rebirth__info">
+      Rebirthy: <strong id="rebirthCount">0</strong><br>
+      Bonus: <strong id="rebirthBonus">x1.00</strong>
+    </p>
+
+    <div class="rebirth__content">
+      <button id="rebirthBtn" class="rebirth__button">
+        ♻️ REBIRTH
+      </button>
+    </div>
   </section>
 
 </main>
