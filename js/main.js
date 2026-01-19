@@ -49,6 +49,7 @@ render();
 
 
 function resetGame() {
+  state.rebirths = 0;
   state.points = 0;
   state.perSecond = 0;
   state.totalPoints = 0;
