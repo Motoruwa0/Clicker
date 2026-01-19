@@ -106,7 +106,11 @@ if (rebirthBtn) {
 
 function doRebirth() {
   state.rebirths += 1;
-  state.rebirthBonus = state.rebirths * 2;
+  if (state.rebirths <= 10) {
+  state.rebirthBonus = 1 + state.rebirths * 0.5;
+} else {
+  state.rebirthBonus = 1 + (10 * 0.5) + (state.rebirths - 10) * 0.2;
+}
 
 
   state.points = 0;
