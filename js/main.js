@@ -90,12 +90,7 @@ if (resetBtn) {
 
 
 
-function addTestResources() {
- 
-  state.points += 1_000_000;
-  state.totalPoints += 1_000_000;
 
-  state.xp += 1_000_000;
 
 
   while (state.xp >= state.xpToNextLevel) {
@@ -106,4 +101,4 @@ function addTestResources() {
 
   saveGame();
   render();
-}
+

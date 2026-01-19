@@ -78,9 +78,14 @@
 .nav {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 12px 24px;
 }
+
+.nav__actions {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+}
+
 
 .nav__tabs {
   display: flex;
