@@ -201,27 +201,27 @@ const skins = [
     name: "Jägermeister kitku",
     price: 1000000,
     img: "images/skin32.png",
-    requiredLevel: 50
+    requiredLevel: 60
   }, 
   {
     id: "skin-33",
     name: "HAPPY MEAL",
     price: 1000000,
     img: "images/skin33.png",
-    requiredLevel: 50
+    requiredLevel: 60
   }, 
   {
     id: "skin-34",
     name: "Monster kitku",
     price: 1000000,
     img: "images/skin34.png",
-    requiredLevel: 50
+    requiredLevel: 60
   }, 
   {
     id: "skin-35",
     name: "Romper kitku",
     price: 1000000,
     img: "images/skin35.png",
-    requiredLevel: 50
+    requiredLevel: 61
   }
 ];
