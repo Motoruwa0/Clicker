@@ -49,7 +49,6 @@ render();
 
 
 function resetGame() {
-  state.rebirths = 0;
   state.points = 0;
   state.perSecond = 0;
   state.totalPoints = 0;
@@ -83,6 +82,23 @@ if (resetBtn) {
   });
 }
 
+const addExpBtn = document.getElementById("addExpBtn");
+
+if (addExpBtn) {
+  addExpBtn.addEventListener("click", () => {
+    state.xp += 1_000_000;
+
+    while (state.xp >= state.xpToNextLevel) {
+      state.xp -= state.xpToNextLevel;
+      state.level++;
+      state.xpToNextLevel = Math.floor(state.xpToNextLevel * 1.1);
+    }
+
+    saveGame();
+    render();
+  });
+}
+
 
 const rebirthBtn = document.getElementById("rebirthBtn");
 
@@ -93,10 +109,12 @@ if (rebirthBtn) {
       return;
     }
 
+    const nextBonus = (state.rebirths + 1) * 2;
+
     const ok = confirm(
       `Rebirth zresetuje CAŁY POSTĘP.\n\n` +
       `Aktualne rebirthy: ${state.rebirths}\n` +
-      `Nowy bonus: x${(1 + (state.rebirths + 1) * 0.1).toFixed(2)}`
+      `Nowy bonus: x${nextBonus.toFixed(2)}`
     );
 
     if (!ok) return;
@@ -107,8 +125,7 @@ if (rebirthBtn) {
 
 function doRebirth() {
   state.rebirths += 1;
-  state.rebirthBonus = 1 + state.rebirths * 0.1;
-
+  state.rebirthBonus = state.rebirths * 2;
 
   state.points = 0;
   state.perSecond = 0;
