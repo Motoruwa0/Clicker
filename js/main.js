@@ -1,4 +1,9 @@
 
+function calculateRebirthBonus(rebirths) {
+  return 1 + rebirths * 0.5;
+}
+
+
 document.getElementById("clickImage").addEventListener("click", () => {
   const gain = state.pointsPerClick * state.rebirthBonus;
 
@@ -47,8 +52,11 @@ window.addEventListener("beforeunload", saveGame);
 loadGame();
 render();
 
-
 function resetGame() {
+  // TOTALNY RESET – RÓWNIEŻ REBIRTH
+  state.rebirths = 0;
+  state.rebirthBonus = 1;
+
   state.points = 0;
   state.perSecond = 0;
   state.totalPoints = 0;
@@ -82,6 +90,7 @@ if (resetBtn) {
   });
 }
 
+
 const addExpBtn = document.getElementById("addExpBtn");
 
 if (addExpBtn) {
@@ -109,7 +118,7 @@ if (rebirthBtn) {
       return;
     }
 
-    const nextBonus = (state.rebirths + 1) * 2;
+    const nextBonus = calculateRebirthBonus(state.rebirths + 1);
 
     const ok = confirm(
       `Rebirth zresetuje CAŁY POSTĘP.\n\n` +
@@ -125,21 +134,9 @@ if (rebirthBtn) {
 
 function doRebirth() {
   state.rebirths += 1;
+  state.rebirthBonus = calculateRebirthBonus(state.rebirths);
 
-
-  state.rebirthBonus = state.rebirths * 2;
-
-
-
-
-  if (state.rebirths <= 10) {
-  state.rebirthBonus = 1 + state.rebirths * 0.5;
-} else {
-  state.rebirthBonus = 1 + (10 * 0.5) + (state.rebirths - 10) * 0.2;
-}
-
-
-
+  
   state.points = 0;
   state.perSecond = 0;
   state.totalPoints = 0;
