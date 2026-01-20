@@ -1,8 +1,10 @@
+function getRebirthCost() {
+  return 100_000_000 * Math.pow(2, state.rebirths);
+}
 
 function calculateRebirthBonus(rebirths) {
   return 1 + rebirths * 0.5;
 }
-
 
 document.getElementById("clickImage").addEventListener("click", () => {
   const gain = state.pointsPerClick * state.rebirthBonus;
@@ -14,7 +16,6 @@ document.getElementById("clickImage").addEventListener("click", () => {
   addXPFromClicks();
   render();
 });
-
 
 function buyUpgrade(i) {
   const u = upgrades[i];
@@ -34,7 +35,6 @@ function buyUpgrade(i) {
   render();
 }
 
-
 setInterval(() => {
   if (state.perSecond > 0) {
     const gain = state.perSecond * state.rebirthBonus;
@@ -45,15 +45,14 @@ setInterval(() => {
   }
 }, 1000);
 
-
 setInterval(saveGame, 5000);
 window.addEventListener("beforeunload", saveGame);
 
 loadGame();
+state.rebirthBonus = calculateRebirthBonus(state.rebirths);
 render();
 
 function resetGame() {
-  // TOTALNY RESET – RÓWNIEŻ REBIRTH
   state.rebirths = 0;
   state.rebirthBonus = 1;
 
@@ -78,18 +77,15 @@ function resetGame() {
   render();
 }
 
-
 const resetBtn = document.getElementById("resetGameBtn");
 
 if (resetBtn) {
   resetBtn.addEventListener("click", () => {
     const ok = confirm("Na pewno chcesz zresetować grę?");
     if (!ok) return;
-
     resetGame();
   });
 }
-
 
 const addExpBtn = document.getElementById("addExpBtn");
 
@@ -108,20 +104,20 @@ if (addExpBtn) {
   });
 }
 
-
 const rebirthBtn = document.getElementById("rebirthBtn");
 
 if (rebirthBtn) {
   rebirthBtn.addEventListener("click", () => {
-    if (state.level < 50) {
-      alert("Rebirth dostępny od poziomu 50");
-      return;
-    }
+    const cost = getRebirthCost();
+
+    if (state.level < 50) return;
+    if (state.points < cost) return;
 
     const nextBonus = calculateRebirthBonus(state.rebirths + 1);
 
     const ok = confirm(
       `Rebirth zresetuje CAŁY POSTĘP.\n\n` +
+      `Koszt: ${formatNumber(cost)}\n` +
       `Aktualne rebirthy: ${state.rebirths}\n` +
       `Nowy bonus: x${nextBonus.toFixed(2)}`
     );
@@ -133,10 +129,12 @@ if (rebirthBtn) {
 }
 
 function doRebirth() {
+  const cost = getRebirthCost();
+  state.points -= cost;
+
   state.rebirths += 1;
   state.rebirthBonus = calculateRebirthBonus(state.rebirths);
 
-  
   state.points = 0;
   state.perSecond = 0;
   state.totalPoints = 0;

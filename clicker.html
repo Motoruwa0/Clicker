@@ -21,12 +21,10 @@
     <button id="resetGameBtn" class="reset-btn">
       🔄 Reset gry (TEST)
     </button>
-  
-  <button id="addExpBtn" class="reset-btn">
-    🧪 +1 000 000 EXP
-  </button>
-</div>
 
+    <button id="addExpBtn" class="reset-btn">
+      🧪 +1 000 000 EXP
+    </button>
   </div>
 
   <div class="nav-points">
@@ -58,7 +56,7 @@
     </div>
   </section>
 
- 
+
   <section class="tab stats" id="stats">
     <h1 class="stats__title">📊 Statystyki</h1>
 
@@ -93,7 +91,6 @@
         <div class="stats__value" id="xp">0 / 100</div>
       </div>
 
-     
       <div class="stats__card">
         <div class="stats__label">Rebirthy</div>
         <div class="stats__value" id="rebirthStats">0</div>
@@ -106,7 +103,7 @@
     </div>
   </section>
 
-
+ 
   <section class="tab skins" id="skins">
     <h1 class="skins__title">🎨 Sklep skinów</h1>
     <div id="skinsContainer" class="skins__grid"></div>
@@ -114,19 +111,25 @@
 
   
   <section class="tab rebirth" id="rebirth">
-    <h1 class="rebirth__title">🔥 Rebirth 🔥</h1>
+  <h1 class="rebirth__title">🔥 Rebirth 🔥</h1>
+
+  <div class="rebirth__content">
+
+    <p class="rebirth__cost">
+      Koszt: <strong id="rebirthCost">100 mln</strong> punktów
+    </p>
 
     <p class="rebirth__info">
       Rebirthy: <strong id="rebirthCount">0</strong><br>
       Bonus: <strong id="rebirthBonus">x1.00</strong>
     </p>
 
-    <div class="rebirth__content">
-      <button id="rebirthBtn" class="rebirth__button">
-        ♻️ REBIRTH
-      </button>
-    </div>
-  </section>
+    <button id="rebirthBtn" class="rebirth__button">
+      ♻️ REBIRTH
+    </button>
+
+  </div>
+</section>
 
 </main>
 
@@ -138,6 +141,6 @@
 <script src="js/storage.js"></script>
 <script src="js/main.js"></script>
 <script src="js/tabs.js"></script>
-f
+
 </body>
 </html>

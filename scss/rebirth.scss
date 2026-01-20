@@ -1,18 +1,7 @@
 .rebirth {
-  flex-direction: column;
-  height: 100%;
-}
-
-
-.rebirth__content {
-  flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 30px;
-
-  transform: translateY(60px);
+  height: 100%;
 }
 
 .rebirth__title {
@@ -20,10 +9,23 @@
   font-size: 48px;
   margin-top: 40px;
   margin-bottom: 0;
-
-  align-self: center; 
 }
 
+.rebirth__content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 22px;
+  transform: translateY(20px);
+}
+
+.rebirth__cost {
+  font-size: 22px;
+  font-weight: 600;
+  color: #ffcc33;
+  text-align: center;
+}
 
 .rebirth__info {
   text-align: center;
@@ -32,8 +34,8 @@
   line-height: 1.4;
 }
 
-
 .rebirth__button {
+  margin-top: 20px;
   font-size: 36px;
   padding: 30px 80px;
   border-radius: 20px;
@@ -43,10 +45,16 @@
   cursor: pointer;
   border: none;
   box-shadow: 0 0 40px rgba(255, 200, 50, 0.4);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
 }
 
-.rebirth__button:hover {
+.rebirth__button:hover:not(:disabled) {
   transform: scale(1.05);
   box-shadow: 0 0 60px rgba(255, 200, 50, 0.7);
+}
+
+.rebirth__button:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  box-shadow: none;
 }

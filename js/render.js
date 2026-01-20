@@ -9,28 +9,23 @@ function formatNumber(value) {
 function render() {
   const pointsEl = document.getElementById("points");
   const pointsGameEl = document.getElementById("pointsGame");
-
   const perSecondGameEl = document.getElementById("perSecondGame");
   const perSecondStatsEl = document.getElementById("perSecondStats");
-
   const clickCountEl = document.getElementById("clickCount");
   const upgradeCountEl = document.getElementById("upgradeCount");
   const totalPointsEl = document.getElementById("totalPoints");
-
   const levelEl = document.getElementById("level");
   const xpEl = document.getElementById("xp");
 
   if (pointsEl) pointsEl.textContent = formatNumber(state.points);
   if (pointsGameEl) pointsGameEl.textContent = formatNumber(state.points);
-
   if (perSecondGameEl) perSecondGameEl.textContent = state.perSecond;
   if (perSecondStatsEl) perSecondStatsEl.textContent = state.perSecond;
-
   if (clickCountEl) clickCountEl.textContent = state.clicks;
   if (upgradeCountEl) upgradeCountEl.textContent = state.upgradesBought;
   if (totalPointsEl) totalPointsEl.textContent = formatNumber(state.totalPoints);
-
   if (levelEl) levelEl.textContent = state.level;
+
   if (xpEl) {
     xpEl.innerHTML = `
       ${formatNumber(state.xp)}<br>
@@ -39,13 +34,8 @@ function render() {
     `;
   }
 
-
-  if (!state.currentSkin) {
-    state.currentSkin = "default";
-  }
-  if (!state.ownedSkins.includes("default")) {
-    state.ownedSkins = ["default"];
-  }
+  if (!state.currentSkin) state.currentSkin = "default";
+  if (!state.ownedSkins.includes("default")) state.ownedSkins = ["default"];
 
   const clickImage = document.getElementById("clickImage");
   if (clickImage && typeof skins !== "undefined") {
@@ -60,14 +50,11 @@ function render() {
     upgrades.forEach((u, i) => {
       const cost = Math.floor(u.baseCost * Math.pow(1.15, u.count));
       const requiredLevel = u.requiredLevel || 1;
-
       const hasLevel = state.level >= requiredLevel;
       const canBuy = state.points >= cost && hasLevel;
 
       const div = document.createElement("div");
-      div.className =
-        "upgrade" +
-        (canBuy ? "" : " upgrade--disabled");
+      div.className = "upgrade" + (canBuy ? "" : " upgrade--disabled");
 
       const bonus =
         u.type === "click"
@@ -84,14 +71,10 @@ function render() {
         </div>
       `;
 
-      if (canBuy) {
-        div.onclick = () => buyUpgrade(i);
-      }
-
+      if (canBuy) div.onclick = () => buyUpgrade(i);
       upgradesContainer.appendChild(div);
     });
   }
-
 
   const skinsContainer = document.getElementById("skinsContainer");
   if (skinsContainer && typeof skins !== "undefined") {
@@ -100,7 +83,6 @@ function render() {
     skins.forEach(skin => {
       const owned = state.ownedSkins.includes(skin.id);
       const isActive = state.currentSkin === skin.id;
-
       const requiredLevel = skin.requiredLevel || 1;
       const hasLevel = state.level >= requiredLevel;
 
@@ -132,37 +114,47 @@ function render() {
         </button>
       `;
 
- div.querySelector("button").onclick = () => {
- 
-  if (!owned) {
-    if (!hasLevel) return;
-    if (state.points < skin.price) return;
-
-    state.points -= skin.price;
-    state.ownedSkins.push(skin.id);
-  }
-
- 
-  state.currentSkin = skin.id;
-
-  render();
-};
-
+      div.querySelector("button").onclick = () => {
+        if (!owned) {
+          if (!hasLevel) return;
+          if (state.points < skin.price) return;
+          state.points -= skin.price;
+          state.ownedSkins.push(skin.id);
+        }
+        state.currentSkin = skin.id;
+        render();
+      };
 
       skinsContainer.appendChild(div);
     });
   }
 
-  
   const rebirthCountEl = document.getElementById("rebirthCount");
   const rebirthBonusEl = document.getElementById("rebirthBonus");
   const rebirthStatsEl = document.getElementById("rebirthStats");
   const rebirthBonusStatsEl = document.getElementById("rebirthBonusStats");
+  const rebirthCostEl = document.getElementById("rebirthCost");
+  const rebirthBtn = document.getElementById("rebirthBtn");
+
+  const cost = getRebirthCost();
+  const missing = Math.max(0, cost - state.points);
+  const canRebirth = state.level >= 50 && missing === 0;
 
   if (rebirthCountEl) rebirthCountEl.textContent = state.rebirths;
   if (rebirthBonusEl) rebirthBonusEl.textContent = "x" + state.rebirthBonus.toFixed(2);
   if (rebirthStatsEl) rebirthStatsEl.textContent = state.rebirths;
-  if (rebirthBonusStatsEl) {
-    rebirthBonusStatsEl.textContent = "x" + state.rebirthBonus.toFixed(2);
+  if (rebirthBonusStatsEl) rebirthBonusStatsEl.textContent = "x" + state.rebirthBonus.toFixed(2);
+
+  if (rebirthCostEl) {
+    rebirthCostEl.textContent =
+      missing === 0
+        ? formatNumber(cost)
+        : `${formatNumber(cost)} (brakuje ${formatNumber(missing)})`;
+  }
+
+  if (rebirthBtn) {
+    rebirthBtn.disabled = !canRebirth;
+    rebirthBtn.style.opacity = canRebirth ? "1" : "0.35";
+    rebirthBtn.style.cursor = canRebirth ? "pointer" : "not-allowed";
   }
 }
