@@ -31,14 +31,21 @@ function render() {
   if (totalPointsEl) totalPointsEl.textContent = formatNumber(state.totalPoints);
 
   if (levelEl) levelEl.textContent = state.level;
- if (xpEl) {
-  xpEl.innerHTML = `
-    ${formatNumber(state.xp)}<br>
-    /<br>
-    ${formatNumber(state.xpToNextLevel)}
-  `;
-}
+  if (xpEl) {
+    xpEl.innerHTML = `
+      ${formatNumber(state.xp)}<br>
+      /<br>
+      ${formatNumber(state.xpToNextLevel)}
+    `;
+  }
 
+
+  if (!state.currentSkin) {
+    state.currentSkin = "default";
+  }
+  if (!state.ownedSkins.includes("default")) {
+    state.ownedSkins = ["default"];
+  }
 
   const clickImage = document.getElementById("clickImage");
   if (clickImage && typeof skins !== "undefined") {
@@ -85,51 +92,68 @@ function render() {
     });
   }
 
+
   const skinsContainer = document.getElementById("skinsContainer");
   if (skinsContainer && typeof skins !== "undefined") {
     skinsContainer.innerHTML = "";
 
     skins.forEach(skin => {
       const owned = state.ownedSkins.includes(skin.id);
+      const isActive = state.currentSkin === skin.id;
+
       const requiredLevel = skin.requiredLevel || 1;
       const hasLevel = state.level >= requiredLevel;
 
       const div = document.createElement("div");
-      div.className = "skin-card";
+      div.className = "skin-card" + (isActive ? " skin-card--active" : "");
 
       div.innerHTML = `
         <img src="${skin.img}">
         <h3>${skin.name}</h3>
         <p>
           ${
-            owned
-              ? "Posiadany"
-              : !hasLevel
-                ? `Wymagany lvl ${requiredLevel}`
-                : formatNumber(skin.price) + " pkt"
+            isActive
+              ? "Założony"
+              : owned
+                ? "Posiadany"
+                : !hasLevel
+                  ? `Wymagany lvl ${requiredLevel}`
+                  : formatNumber(skin.price) + " pkt"
           }
         </p>
-        <button>${owned ? "Załóż" : "Kup"}</button>
+        <button>
+          ${
+            isActive
+              ? "Aktywny"
+              : owned
+                ? "Załóż"
+                : "Kup"
+          }
+        </button>
       `;
 
-      div.querySelector("button").onclick = () => {
-        if (!owned && hasLevel && state.points >= skin.price) {
-          state.points -= skin.price;
-          state.ownedSkins.push(skin.id);
-        }
+ div.querySelector("button").onclick = () => {
+ 
+  if (!owned) {
+    if (!hasLevel) return;
+    if (state.points < skin.price) return;
 
-        if (owned || hasLevel) {
-          state.currentSkin = skin.id;
-        }
+    state.points -= skin.price;
+    state.ownedSkins.push(skin.id);
+  }
 
-        render();
-      };
+ 
+  state.currentSkin = skin.id;
+
+  render();
+};
+
 
       skinsContainer.appendChild(div);
     });
   }
 
- 
+  
   const rebirthCountEl = document.getElementById("rebirthCount");
   const rebirthBonusEl = document.getElementById("rebirthBonus");
   const rebirthStatsEl = document.getElementById("rebirthStats");

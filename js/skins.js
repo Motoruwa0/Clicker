@@ -1,11 +1,12 @@
 const skins = [
-  {
-    id: "skin1",
-    name: "Domyślny",
-    price: 0,
-    img: "images/Skin1.png",
-    requiredLevel: 0
-  },
+{
+  id: "default",
+  name: "Domyślny",
+  price: 0,
+  img: "images/Skin1.png",
+  requiredLevel: 0
+},
+
   {
     id: "skin2",
     name: "Chomik",
