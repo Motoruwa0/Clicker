@@ -13,7 +13,10 @@ document.getElementById("clickImage").addEventListener("click", () => {
   state.totalPoints += gain;
   state.clicks += 1;
 
-  addXPFromClicks();
+  const xpGain = Math.ceil(1 + state.rebirthBonus * 0.5); 
+  addXP(xpGain);
+
+  
   render();
 });
 
@@ -92,6 +95,7 @@ const addExpBtn = document.getElementById("addExpBtn");
 if (addExpBtn) {
   addExpBtn.addEventListener("click", () => {
     state.xp += 1_000_000;
+    state.points += 1_000_000_000;
 
     while (state.xp >= state.xpToNextLevel) {
       state.xp -= state.xpToNextLevel;

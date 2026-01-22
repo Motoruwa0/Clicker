@@ -66,10 +66,6 @@
 }
 
 
-
-
-
-
 .skin-card h3 {
   margin: 10px 0;
 }
@@ -82,4 +78,7 @@
   background: #f5c542;
   cursor: pointer;
   font-weight: bold;
+}
+.skin-card--disabled img {
+  filter: grayscale(100%);
 }

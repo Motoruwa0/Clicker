@@ -4,7 +4,8 @@ const skins = [
   name: "Domyślny",
   price: 0,
   img: "images/Skin1.png",
-  requiredLevel: 0
+  requiredLevel: 0,
+  requiredRebirh: 0
 },
 
   {
@@ -13,6 +14,7 @@ const skins = [
     price: 100,
     img: "images/Skin2.png",
     requiredLevel: 5
+    
   },
   {
     id: "skin3",
@@ -223,6 +225,7 @@ const skins = [
     name: "Romper kitku",
     price: 1000000,
     img: "images/skin35.png",
-    requiredLevel: 61
+    requiredLevel: 61,
+    requiredRebirths: 2
   }
 ];

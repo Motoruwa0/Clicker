@@ -83,26 +83,55 @@ function render() {
     skins.forEach(skin => {
       const owned = state.ownedSkins.includes(skin.id);
       const isActive = state.currentSkin === skin.id;
+
       const requiredLevel = skin.requiredLevel || 1;
       const hasLevel = state.level >= requiredLevel;
 
+      const requiredRebirths = skin.requiredRebirths || 0;
+      const hasRebirths = state.rebirths >= requiredRebirths;
+
+      const hasMoney = state.points >= skin.price;
+      const isDisabled = !owned && (!hasLevel || !hasMoney || !hasRebirths);
+
       const div = document.createElement("div");
-      div.className = "skin-card" + (isActive ? " skin-card--active" : "");
+      div.className =
+        "skin-card" +
+        (isActive ? " skin-card--active" : "") +
+        (isDisabled ? " skin-card--disabled" : "");
 
       div.innerHTML = `
         <img src="${skin.img}">
         <h3>${skin.name}</h3>
         <p>
-          ${
-            isActive
-              ? "Założony"
-              : owned
-                ? "Posiadany"
-                : !hasLevel
-                  ? `Wymagany lvl ${requiredLevel}`
-                  : formatNumber(skin.price) + " pkt"
-          }
-        </p>
+  ${
+    isActive
+      ? "Założony"
+      : owned
+        ? "Posiadany"
+        : (() => {
+            const req = [];
+
+            if (!hasRebirths) {
+              req.push(`Rebirthy: ${requiredRebirths}`);
+            }
+
+            if (!hasLevel) {
+              req.push(`Lvl: ${requiredLevel}`);
+            }
+
+            if (!hasMoney) {
+              req.push(`Brakuje ${formatNumber(skin.price - state.points)} pkt`);
+            }
+
+            if (req.length > 0) {
+              return "Wymagane: " + req.join(" • ");
+            }
+
+            return formatNumber(skin.price) + " pkt";
+          })()
+  }
+</p>
+
         <button>
           ${
             isActive
@@ -115,12 +144,13 @@ function render() {
       `;
 
       div.querySelector("button").onclick = () => {
+        if (isDisabled) return;
+
         if (!owned) {
-          if (!hasLevel) return;
-          if (state.points < skin.price) return;
           state.points -= skin.price;
           state.ownedSkins.push(skin.id);
         }
+
         state.currentSkin = skin.id;
         render();
       };
