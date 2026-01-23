@@ -1,24 +1,25 @@
-const buttons = document.querySelectorAll(".nav__btn");
+const buttons = document.querySelectorAll(".nav__btn, .casino-btn");
 const tabs = document.querySelectorAll(".tab");
 
 buttons.forEach(button => {
   button.addEventListener("click", () => {
     const tabId = button.dataset.tab;
+    if (!tabId) return;
 
-   
     tabs.forEach(tab => {
       tab.classList.toggle("tab--active", tab.id === tabId);
     });
 
-    
-    buttons.forEach(btn => {
-      btn.classList.toggle("nav__btn--active", btn === button);
+    const navButtons = document.querySelectorAll(".nav__btn");
+    navButtons.forEach(btn => {
+      btn.classList.toggle(
+        "nav__btn--active",
+        btn.dataset.tab === tabId
+      );
     });
 
-   
-    document.body.classList.toggle(
-      "show-upgrades-hud",
-      tabId === "upgrades"
-    );
+    if (tabId === "casino-coinflip") {
+      initCoinflip();
+    }
   });
 });
