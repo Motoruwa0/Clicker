@@ -152,6 +152,7 @@
   </div>
 </section>
 <section class="tab casino-coinflip" id="casino-coinflip">
+  
   <div class="tab__inner tab__inner--center">
 
     <h1 class="casino__title">🎲 Rzut Monetą</h1>
@@ -186,6 +187,41 @@
     <div class="coinflip__result" id="coinflipResult"></div>
 
 
+
+      <button class="casino-btn" data-tab="casino">
+        ← Wróć do Kasyna
+      </button>
+
+    </div>
+
+  </div>
+</section>
+<section class="tab casino-slots" id="casino-slots">
+  <div class="tab__inner tab__inner--center">
+
+    <h1 class="casino__title">🎰 Jednoręki bandzior</h1>
+
+    <div class="slot">
+
+      <div class="slot__reels">
+        <div class="slot__reel" id="slotReel1">🍒</div>
+        <div class="slot__reel" id="slotReel2">🍋</div>
+        <div class="slot__reel" id="slotReel3">🔔</div>
+      </div>
+
+      <input
+        type="number"
+        id="slotBet"
+        class="slot__input"
+        placeholder="Stawka"
+        min="1"
+      >
+
+      <button id="slotPlay" class="casino-btn">
+        ZAKRĘĆ 🎰
+      </button>
+
+      <div id="slotResult" class="slot__result"></div>
 
       <button class="casino-btn" data-tab="casino">
         ← Wróć do Kasyna

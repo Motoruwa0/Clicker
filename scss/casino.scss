@@ -165,3 +165,80 @@
   box-shadow:
     0 0 20px rgba(255, 0, 0, 0.6);
 }
+.slot {
+  text-align: center;
+}
+
+.slot__reels {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  font-size: 64px;
+  margin: 20px 0;
+}
+
+.slot__reel {
+  width: 80px;
+}
+
+.slot__result {
+  margin-top: 15px;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.slot__reels {
+  display: flex;
+  gap: 20px;
+  font-size: 64px;
+  margin-bottom: 20px;
+}
+
+.slot__input {
+  margin-bottom: 15px;
+  padding: 10px;
+  width: 200px;
+  text-align: center;
+}
+
+.slot__result {
+  margin-top: 15px;
+  font-weight: bold;
+}
+
+.slot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 22px;
+}
+
+.slot__reels {
+  display: flex;
+  gap: 32px;
+  font-size: 72px;
+}
+
+.slot__reel {
+  width: 80px;
+  text-align: center;
+}
+
+.slot__input {
+  width: 180px;
+  padding: 10px;
+  text-align: center;
+  font-size: 16px;
+}
+
+#slotPlay {
+  width: 220px;
+  padding: 16px;
+  font-size: 18px;
+}
+
+.slot__result {
+  margin-top: 10px;
+  font-size: 18px;
+  font-weight: bold;
+}

@@ -81,3 +81,82 @@ coin.classList.add(
     });
   }, 350);
 };
+let slotsInitialized = false;
+
+window.initSlots = function () {
+  if (slotsInitialized) return;
+  slotsInitialized = true;
+
+  setTimeout(() => {
+    const reel1 = document.getElementById("slotReel1");
+    const reel2 = document.getElementById("slotReel2");
+    const reel3 = document.getElementById("slotReel3");
+
+    const betInput = document.getElementById("slotBet");
+    const playBtn = document.getElementById("slotPlay");
+    const resultEl = document.getElementById("slotResult");
+
+    if (!reel1 || !reel2 || !reel3 || !playBtn) {
+      slotsInitialized = false;
+      return;
+    }
+
+    const symbols = [
+  "\u{1F48E}", 
+  "\u{1F34B}", 
+  "\u{0037}\u{FE0F}\u{20E3}",    //jakbys sie kichal pytal co to jest to jest unicode emoji do bandziora
+  "\u{1F352}",                  
+  "\u{1F514}"  
+];
+
+
+    playBtn.addEventListener("click", () => {
+      const bet = Number(betInput.value);
+      resultEl.textContent = "";
+
+      if (!bet || bet <= 0) return;
+      if (state.points < bet) return;
+
+      state.points -= bet;
+      render();
+
+      let spins = 0;
+      const maxSpins = 12;
+
+      const spinInterval = setInterval(() => {
+        reel1.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+        reel2.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+        reel3.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+
+        spins++;
+
+        if (spins >= maxSpins) {
+          clearInterval(spinInterval);
+
+          const r1 = reel1.textContent;
+          const r2 = reel2.textContent;
+          const r3 = reel3.textContent;
+
+          let win = 0;
+
+          if (r1 === r2 && r2 === r3) {
+            win = bet * 5;
+            resultEl.textContent = `🎉 JACKPOT +${win}`;
+          } else if (r1 === r2 || r2 === r3 || r1 === r3) {
+            win = bet * 2;
+            resultEl.textContent = `Pomidorowa Wygrana +${win}`;
+          } else {
+            resultEl.textContent = "❌ Idziesz do guagu";
+          }
+
+          if (win > 0) {
+            state.points += win;
+          }
+
+          render();
+        }
+      }, 100);
+    });
+
+  }, 300);
+};

@@ -14,7 +14,7 @@ document.getElementById("clickImage").addEventListener("click", () => {
   state.clicks += 1;
 
   const xpGain = Math.ceil(1 + state.rebirthBonus * 0.5); 
-  addXP(xpGain);
+  addXP(xpGain);  
 
   
   render();
@@ -48,7 +48,8 @@ setInterval(() => {
   }
 }, 1000);
 
-setInterval(saveGame, 5000);
+
+  setInterval(saveGame, 5000);
 window.addEventListener("beforeunload", saveGame);
 
 loadGame();
