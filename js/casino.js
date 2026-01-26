@@ -1,9 +1,17 @@
 let coinflipInitialized = false;
+let coinRotation = 0;
+
+const coinSpinSound = new Audio("sounds/coin-spin.mp3");
+const coinWinSound = new Audio("sounds/coin-win.mp3");
+const coinLoseSound = new Audio("sounds/coin-lose.mp3");
+
+coinSpinSound.volume = 0.6;
+coinWinSound.volume = 0.7;
+coinLoseSound.volume = 0.7;
 
 window.initCoinflip = function () {
   if (coinflipInitialized) return;
   coinflipInitialized = true;
-
 
   setTimeout(() => {
     const coin = document.getElementById("coin");
@@ -18,9 +26,7 @@ window.initCoinflip = function () {
     }
 
     let selectedChoice = null;
-    let currentOutcome = null;
 
- 
     choiceBtns.forEach(btn => {
       btn.addEventListener("click", () => {
         choiceBtns.forEach(b => b.classList.remove("active"));
@@ -29,11 +35,9 @@ window.initCoinflip = function () {
       });
     });
 
-   
     playBtn.addEventListener("click", () => {
       const bet = Number(betInput.value);
 
-  
       resultEl.classList.remove("show");
       resultEl.innerHTML = "";
 
@@ -44,29 +48,30 @@ window.initCoinflip = function () {
       state.points -= bet;
       render();
 
-      currentOutcome = Math.random() < 0.5 ? "orzel" : "reszka";
+      const outcome = Math.random() < 0.5 ? "orzel" : "reszka";
 
-     coin.classList.remove("spin-orzel", "spin-reszka");
-coin.style.transform = "rotateY(0deg)";
-void coin.offsetWidth;
+      coinSpinSound.currentTime = 0;
+      coinSpinSound.play();
 
-coin.classList.add(
-  currentOutcome === "orzel" ? "spin-orzel" : "spin-reszka"
-);
-
+      coinRotation += outcome === "orzel" ? 2160 : 2340;
+      coin.style.transform = `rotateY(${coinRotation}deg)`;
 
       setTimeout(() => {
         let message = "";
         let className = "";
 
-        if (currentOutcome === selectedChoice) {
+        if (outcome === selectedChoice) {
           const win = bet * 2;
           state.points += win;
           message = `🎉 WYGRAŁEŚ ${win} PUNKTÓW`;
           className = "win";
+          coinWinSound.currentTime = 0;
+          coinWinSound.play();
         } else {
           message = "❌ PRZEGRAŁEŚ";
           className = "lose";
+          coinLoseSound.currentTime = 0;
+          coinLoseSound.play();
         }
 
         resultEl.innerHTML = `
@@ -77,11 +82,20 @@ coin.classList.add(
 
         resultEl.classList.add("show");
         render();
-      }, 900);
+      }, 2000);
     });
   }, 350);
 };
+
 let slotsInitialized = false;
+
+const slotSpinSound = new Audio("sounds/slot-spin.mp3");
+const slotWinSound = new Audio("sounds/slot-win.mp3");
+const slotLoseSound = new Audio("sounds/slot-lose.mp3");
+
+slotSpinSound.volume = 0.5;
+slotWinSound.volume = 0.7;
+slotLoseSound.volume = 0.7;
 
 window.initSlots = function () {
   if (slotsInitialized) return;
@@ -102,13 +116,12 @@ window.initSlots = function () {
     }
 
     const symbols = [
-  "\u{1F48E}", 
-  "\u{1F34B}", 
-  "\u{0037}\u{FE0F}\u{20E3}",    //jakbys sie kichal pytal co to jest to jest unicode emoji do bandziora
-  "\u{1F352}",                  
-  "\u{1F514}"  
-];
-
+      "\u{1F48E}",
+      "\u{1F34B}",
+      "\u{0037}\u{FE0F}\u{20E3}",
+      "\u{1F352}",
+      "\u{1F514}"
+    ];
 
     playBtn.addEventListener("click", () => {
       const bet = Number(betInput.value);
@@ -119,6 +132,9 @@ window.initSlots = function () {
 
       state.points -= bet;
       render();
+
+      slotSpinSound.currentTime = 0;
+      slotSpinSound.play();
 
       let spins = 0;
       const maxSpins = 12;
@@ -142,11 +158,17 @@ window.initSlots = function () {
           if (r1 === r2 && r2 === r3) {
             win = bet * 5;
             resultEl.textContent = `🎉 JACKPOT +${win}`;
+            slotWinSound.currentTime = 0;
+            slotWinSound.play();
           } else if (r1 === r2 || r2 === r3 || r1 === r3) {
             win = bet * 2;
             resultEl.textContent = `Pomidorowa Wygrana +${win}`;
+            slotWinSound.currentTime = 0;
+            slotWinSound.play();
           } else {
             resultEl.textContent = "❌ Idziesz do guagu";
+            slotLoseSound.currentTime = 0;
+            slotLoseSound.play();
           }
 
           if (win > 0) {
@@ -157,6 +179,5 @@ window.initSlots = function () {
         }
       }, 100);
     });
-
   }, 300);
 };
