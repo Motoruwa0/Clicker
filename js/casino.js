@@ -63,12 +63,12 @@ window.initCoinflip = function () {
         if (outcome === selectedChoice) {
           const win = bet * 2;
           state.points += win;
-          message = `🎉 WYGRAŁEŚ ${win} PUNKTÓW`;
+          message = `Wygrałeś ${win} Pomidorów`;
           className = "win";
           coinWinSound.currentTime = 0;
           coinWinSound.play();
         } else {
-          message = "❌ PRZEGRAŁEŚ";
+          message = "❌ Idziesz do gułagu";
           className = "lose";
           coinLoseSound.currentTime = 0;
           coinLoseSound.play();
@@ -109,6 +109,7 @@ window.initSlots = function () {
     const betInput = document.getElementById("slotBet");
     const playBtn = document.getElementById("slotPlay");
     const resultEl = document.getElementById("slotResult");
+    const autoBtn = document.getElementById("autoSpinBtn");
 
     if (!reel1 || !reel2 || !reel3 || !playBtn) {
       slotsInitialized = false;
@@ -125,10 +126,11 @@ window.initSlots = function () {
 
     playBtn.addEventListener("click", () => {
       const bet = Number(betInput.value);
-      resultEl.textContent = "";
-
       if (!bet || bet <= 0) return;
       if (state.points < bet) return;
+
+      isSpinning = true;
+      resultEl.textContent = "";
 
       state.points -= bet;
       render();
@@ -139,15 +141,26 @@ window.initSlots = function () {
       let spins = 0;
       const maxSpins = 12;
 
-      const spinInterval = setInterval(() => {
+      const spin1 = setInterval(() => {
         reel1.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+      }, 140);
+
+      const spin2 = setInterval(() => {
         reel2.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+      }, 100);
+
+      const spin3 = setInterval(() => {
         reel3.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+      }, 70);
 
-        spins++;
+      const stop = setInterval(() => {
+        steps++;
 
-        if (spins >= maxSpins) {
-          clearInterval(spinInterval);
+        if (steps >= maxSteps) {
+          clearInterval(spin1);
+          clearInterval(spin2);
+          clearInterval(spin3);
+          clearInterval(stop);
 
           const r1 = reel1.textContent;
           const r2 = reel2.textContent;
@@ -172,10 +185,11 @@ window.initSlots = function () {
           }
 
           if (win > 0) {
-            state.points += win;
+            applyWin(win);
           }
 
           render();
+          isSpinning = false;
         }
       }, 100);
     });
