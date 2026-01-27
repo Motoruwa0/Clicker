@@ -87,8 +87,12 @@ window.initCoinflip = function () {
   }, 350);
 };
 
-let slotsInitialized = false;
 
+
+let slotsInitialized = false;
+let slotIsSpinning = false;
+
+/* AUDIO SLOTÓW */
 const slotSpinSound = new Audio("sounds/slot-spin.mp3");
 const slotWinSound = new Audio("sounds/slot-win.mp3");
 const slotLoseSound = new Audio("sounds/slot-lose.mp3");
@@ -101,97 +105,93 @@ window.initSlots = function () {
   if (slotsInitialized) return;
   slotsInitialized = true;
 
-  setTimeout(() => {
-    const reel1 = document.getElementById("slotReel1");
-    const reel2 = document.getElementById("slotReel2");
-    const reel3 = document.getElementById("slotReel3");
+  const reel1 = document.getElementById("slotReel1");
+  const reel2 = document.getElementById("slotReel2");
+  const reel3 = document.getElementById("slotReel3");
+  const betInput = document.getElementById("slotBet");
+  const playBtn = document.getElementById("slotPlay");
+  const resultEl = document.getElementById("slotResult");
 
-    const betInput = document.getElementById("slotBet");
-    const playBtn = document.getElementById("slotPlay");
-    const resultEl = document.getElementById("slotResult");
-    const autoBtn = document.getElementById("autoSpinBtn");
+  if (!reel1 || !reel2 || !reel3 || !playBtn) {
+    slotsInitialized = false;
+    return;
+  }
 
-    if (!reel1 || !reel2 || !reel3 || !playBtn) {
-      slotsInitialized = false;
-      return;
-    }
+  const symbols = ["💎", "🍋", "7️⃣", "🍒", "🔔"];
 
-    const symbols = [
-      "\u{1F48E}",
-      "\u{1F34B}",
-      "\u{0037}\u{FE0F}\u{20E3}",
-      "\u{1F352}",
-      "\u{1F514}"
-    ];
+  playBtn.addEventListener("click", () => {
+    if (slotIsSpinning) return;
 
-    playBtn.addEventListener("click", () => {
-      const bet = Number(betInput.value);
-      if (!bet || bet <= 0) return;
-      if (state.points < bet) return;
+    const bet = Number(betInput.value);
+    if (Number.isNaN(bet) || bet <= 0) return;
+    if (state.points < bet) return;
 
-      isSpinning = true;
-      resultEl.textContent = "";
+    slotIsSpinning = true;
+    resultEl.textContent = "";
 
-      state.points -= bet;
-      render();
+    state.points -= bet;
+    render();
 
-      slotSpinSound.currentTime = 0;
-      slotSpinSound.play();
+    slotSpinSound.currentTime = 0;
+    slotSpinSound.play();
 
-      let spins = 0;
-      const maxSpins = 12;
+    let steps = 0;
+    const maxSteps = 12;
 
-      const spin1 = setInterval(() => {
-        reel1.textContent = symbols[Math.floor(Math.random() * symbols.length)];
-      }, 140);
+    const spin1 = setInterval(() => {
+      reel1.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+    }, 140);
 
-      const spin2 = setInterval(() => {
-        reel2.textContent = symbols[Math.floor(Math.random() * symbols.length)];
-      }, 100);
+    const spin2 = setInterval(() => {
+      reel2.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+    }, 100);
 
-      const spin3 = setInterval(() => {
-        reel3.textContent = symbols[Math.floor(Math.random() * symbols.length)];
-      }, 70);
+    const spin3 = setInterval(() => {
+      reel3.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+    }, 70);
 
-      const stop = setInterval(() => {
-        steps++;
+    const stop = setInterval(() => {
+      steps++;
 
-        if (steps >= maxSteps) {
-          clearInterval(spin1);
-          clearInterval(spin2);
-          clearInterval(spin3);
-          clearInterval(stop);
+      if (steps >= maxSteps) {
+        clearInterval(spin1);
+        clearInterval(spin2);
+        clearInterval(spin3);
+        clearInterval(stop);
 
-          const r1 = reel1.textContent;
-          const r2 = reel2.textContent;
-          const r3 = reel3.textContent;
+        const r1 = reel1.textContent;
+        const r2 = reel2.textContent;
+        const r3 = reel3.textContent;
 
-          let win = 0;
+        let win = 0;
 
-          if (r1 === r2 && r2 === r3) {
-            win = bet * 5;
-            resultEl.textContent = `🎉 JACKPOT +${win}`;
-            slotWinSound.currentTime = 0;
-            slotWinSound.play();
-          } else if (r1 === r2 || r2 === r3 || r1 === r3) {
-            win = bet * 2;
-            resultEl.textContent = `Pomidorowa Wygrana +${win}`;
-            slotWinSound.currentTime = 0;
-            slotWinSound.play();
-          } else {
-            resultEl.textContent = "❌ Idziesz do guagu";
-            slotLoseSound.currentTime = 0;
-            slotLoseSound.play();
-          }
-
-          if (win > 0) {
-            applyWin(win);
-          }
-
-          render();
-          isSpinning = false;
+        if (r1 === r2 && r2 === r3) {
+          win = bet * 5;
+          resultEl.textContent = `🎉 JACKPOT +${win}`;
+          slotWinSound.currentTime = 0;
+          slotWinSound.play();
+        } else if (r1 === r2 || r2 === r3 || r1 === r3) {
+          win = bet * 2;
+          resultEl.textContent = `🍅 Wygrana +${win}`;
+          slotWinSound.currentTime = 0;
+          slotWinSound.play();
+        } else {
+          resultEl.textContent = "❌ Przegrana";
+          slotLoseSound.currentTime = 0;
+          slotLoseSound.play();
         }
-      }, 100);
-    });
-  }, 300);
+
+        if (win > 0) applyWin(win);
+
+        render();
+        slotIsSpinning = false;
+      }
+    }, 100);
+
+    // failsafe
+    setTimeout(() => {
+      slotIsSpinning = false;
+    }, 3000);
+  });
 };
+
