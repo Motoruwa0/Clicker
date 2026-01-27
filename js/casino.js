@@ -18,7 +18,7 @@
   coinWinSound.volume = 0.7;
   coinLoseSound.volume = 0.7;
 
-  slotSpinSound.volume = 0.5;
+  slotSpinSound.volume = 0.6;
   slotWinSound.volume = 0.7;
   slotLoseSound.volume = 0.7;
 
@@ -68,10 +68,10 @@
         coinSpinSound.currentTime = 0;
         coinSpinSound.play();
 
-      const fullSpins = 6 * 360;
-      const target = outcome === "orzel" ? 180 : 0;
-      coinRotation = coinRotation - (coinRotation % 360) + fullSpins + target;
-      coin.style.transform = `rotateY(${coinRotation}deg)`;
+        const fullSpins = 6 * 360;
+        const target = outcome === "orzel" ? 180 : 0;
+        coinRotation = coinRotation - (coinRotation % 360) + fullSpins + target;
+        coin.style.transform = `rotateY(${coinRotation}deg)`;
 
         setTimeout(() => {
           let message = "";
@@ -91,28 +91,19 @@
             coinLoseSound.play();
           }
 
-        resultEl.innerHTML = `
-          <div class="coinflip__message ${className}">
-            ${message}
-          </div>
-        `;
+          resultEl.innerHTML = `
+            <div class="coinflip__message ${className}">
+              ${message}
+            </div>
+          `;
 
-        resultEl.classList.add("show");
-        render();
-      }, 2000);
-    });
-  }, 350);
-};
-
-let slotsInitialized = false;
-
-const slotSpinSound = new Audio("sounds/slot-spin.mp3");
-const slotWinSound = new Audio("sounds/slot-win.mp3");
-const slotLoseSound = new Audio("sounds/coin-lose.mp3");
-
-slotSpinSound.volume = 0.9;
-slotWinSound.volume = 0.7;
-slotLoseSound.volume = 0.7;
+          resultEl.classList.add("show");
+          render();
+          isFlipping = false;
+        }, 2000);
+      });
+    }, 350);
+  };
 
   window.initSlots = function () {
     if (slotsInitialized) return;
@@ -147,6 +138,7 @@ slotLoseSound.volume = 0.7;
       if (!bet || bet <= 0) return;
       if (state.points < bet) return;
 
+      slotIsSpinning = true;
       state.points -= bet;
       render();
 
@@ -161,9 +153,9 @@ slotLoseSound.volume = 0.7;
         reel2.textContent = symbols[Math.floor(Math.random() * symbols.length)];
         reel3.textContent = symbols[Math.floor(Math.random() * symbols.length)];
 
-        spins++;
+        steps++;
 
-        if (spins >= maxSpins) {
+        if (steps >= maxSteps) {
           clearInterval(spinInterval);
 
           const r1 = reel1.textContent;
@@ -190,12 +182,12 @@ slotLoseSound.volume = 0.7;
 
           if (win > 0) {
             state.points += win;
-            state.points += win;
           }
+
           render();
+          slotIsSpinning = false;
         }
       }, 100);
     });
   };
 })();
-
