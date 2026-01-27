@@ -1,80 +1,95 @@
-let coinflipInitialized = false;
-let coinRotation = 0;
+(() => {
+  let coinflipInitialized = false;
+  let slotsInitialized = false;
 
-const coinSpinSound = new Audio("sounds/coin-spin.mp3");
-const coinWinSound = new Audio("sounds/coin-win.mp3");
-const coinLoseSound = new Audio("sounds/coin-lose.mp3");
+  let coinRotation = 0;
+  let isFlipping = false;
+  let slotIsSpinning = false;
 
-coinSpinSound.volume = 0.6;
-coinWinSound.volume = 0.7;
-coinLoseSound.volume = 0.7;
+  const coinSpinSound = new Audio("sounds/coin-spin.mp3");
+  const coinWinSound = new Audio("sounds/coin-win.mp3");
+  const coinLoseSound = new Audio("sounds/coin-lose.mp3");
 
-window.initCoinflip = function () {
-  if (coinflipInitialized) return;
-  coinflipInitialized = true;
+  const slotSpinSound = new Audio("sounds/slot-spin.mp3");
+  const slotWinSound = new Audio("sounds/slot-win.mp3");
+  const slotLoseSound = new Audio("sounds/slot-lose.mp3");
 
-  setTimeout(() => {
-    const coin = document.getElementById("coin");
-    const betInput = document.getElementById("coinflipBet");
-    const playBtn = document.getElementById("coinflipPlay");
-    const resultEl = document.getElementById("coinflipResult");
-    const choiceBtns = document.querySelectorAll(".coinflip__btn");
+  coinSpinSound.volume = 0.6;
+  coinWinSound.volume = 0.7;
+  coinLoseSound.volume = 0.7;
 
-    if (!coin || !betInput || !playBtn || !resultEl) {
-      coinflipInitialized = false;
-      return;
-    }
+  slotSpinSound.volume = 0.5;
+  slotWinSound.volume = 0.7;
+  slotLoseSound.volume = 0.7;
 
-    let selectedChoice = null;
+  window.initCoinflip = function () {
+    if (coinflipInitialized) return;
+    coinflipInitialized = true;
 
-    choiceBtns.forEach(btn => {
-      btn.addEventListener("click", () => {
-        choiceBtns.forEach(b => b.classList.remove("active"));
-        btn.classList.add("active");
-        selectedChoice = btn.dataset.choice;
+    setTimeout(() => {
+      const coin = document.getElementById("coin");
+      const betInput = document.getElementById("coinflipBet");
+      const playBtn = document.getElementById("coinflipPlay");
+      const resultEl = document.getElementById("coinflipResult");
+      const choiceBtns = document.querySelectorAll(".coinflip__btn");
+
+      if (!coin || !betInput || !playBtn || !resultEl) {
+        coinflipInitialized = false;
+        return;
+      }
+
+      let selectedChoice = null;
+
+      choiceBtns.forEach(btn => {
+        btn.addEventListener("click", () => {
+          if (isFlipping) return;
+          choiceBtns.forEach(b => b.classList.remove("active"));
+          btn.classList.add("active");
+          selectedChoice = btn.dataset.choice;
+        });
       });
-    });
 
-    playBtn.addEventListener("click", () => {
-      const bet = Number(betInput.value);
+      playBtn.addEventListener("click", () => {
+        if (isFlipping || !selectedChoice) return;
 
-      resultEl.classList.remove("show");
-      resultEl.innerHTML = "";
+        const bet = Number(betInput.value);
+        if (!bet || bet <= 0) return;
+        if (state.points < bet) return;
 
-      if (!selectedChoice) return;
-      if (!bet || bet <= 0) return;
-      if (state.points < bet) return;
+        isFlipping = true;
+        resultEl.classList.remove("show");
+        resultEl.innerHTML = "";
 
-      state.points -= bet;
-      render();
+        state.points -= bet;
+        render();
 
-      const outcome = Math.random() < 0.5 ? "orzel" : "reszka";
+        const outcome = Math.random() < 0.5 ? "orzel" : "reszka";
 
-      coinSpinSound.currentTime = 0;
-      coinSpinSound.play();
+        coinSpinSound.currentTime = 0;
+        coinSpinSound.play();
 
       const fullSpins = 6 * 360;
       const target = outcome === "orzel" ? 180 : 0;
       coinRotation = coinRotation - (coinRotation % 360) + fullSpins + target;
       coin.style.transform = `rotateY(${coinRotation}deg)`;
 
-      setTimeout(() => {
-        let message = "";
-        let className = "";
+        setTimeout(() => {
+          let message = "";
+          let className = "";
 
-        if (outcome === selectedChoice) {
-          const win = bet * 2;
-          state.points += win;
-          message = `Wygrałeś ${win} Pomidorów`;
-          className = "win";
-          coinWinSound.currentTime = 0;
-          coinWinSound.play();
-        } else {
-          message = "❌ Idziesz do gułagu";
-          className = "lose";
-          coinLoseSound.currentTime = 0;
-          coinLoseSound.play();
-        }
+          if (outcome === selectedChoice) {
+            const win = bet * 2;
+            state.points += win;
+            message = `Wygrałeś ${win} Pomidorów`;
+            className = "win";
+            coinWinSound.currentTime = 0;
+            coinWinSound.play();
+          } else {
+            message = "Idziesz do gułagu";
+            className = "lose";
+            coinLoseSound.currentTime = 0;
+            coinLoseSound.play();
+          }
 
         resultEl.innerHTML = `
           <div class="coinflip__message ${className}">
@@ -99,15 +114,13 @@ slotSpinSound.volume = 0.9;
 slotWinSound.volume = 0.7;
 slotLoseSound.volume = 0.7;
 
-window.initSlots = function () {
-  if (slotsInitialized) return;
-  slotsInitialized = true;
+  window.initSlots = function () {
+    if (slotsInitialized) return;
+    slotsInitialized = true;
 
-  setTimeout(() => {
     const reel1 = document.getElementById("slotReel1");
     const reel2 = document.getElementById("slotReel2");
     const reel3 = document.getElementById("slotReel3");
-
     const betInput = document.getElementById("slotBet");
     const playBtn = document.getElementById("slotPlay");
     const resultEl = document.getElementById("slotResult");
@@ -126,6 +139,8 @@ window.initSlots = function () {
     ];
 
     playBtn.addEventListener("click", () => {
+      if (slotIsSpinning) return;
+
       const bet = Number(betInput.value);
       resultEl.textContent = "";
 
@@ -138,8 +153,8 @@ window.initSlots = function () {
       slotSpinSound.currentTime = 0;
       slotSpinSound.play();
 
-      let spins = 0;
-      const maxSpins = 12;
+      let steps = 0;
+      const maxSteps = 12;
 
       const spinInterval = setInterval(() => {
         reel1.textContent = symbols[Math.floor(Math.random() * symbols.length)];
@@ -159,7 +174,7 @@ window.initSlots = function () {
 
           if (r1 === r2 && r2 === r3) {
             win = bet * 5;
-            resultEl.textContent = `🎉 JACKPOT +${win}`;
+            resultEl.textContent = `MEGA BIG WIN +${win}`;
             slotWinSound.currentTime = 0;
             slotWinSound.play();
           } else if (r1 === r2 || r2 === r3 || r1 === r3) {
@@ -168,18 +183,19 @@ window.initSlots = function () {
             slotWinSound.currentTime = 0;
             slotWinSound.play();
           } else {
-            resultEl.textContent = "❌ Idziesz do guagu";
+            resultEl.textContent = "Idziesz do Gułagu";
             slotLoseSound.currentTime = 0;
             slotLoseSound.play();
           }
 
           if (win > 0) {
             state.points += win;
+            state.points += win;
           }
-
           render();
         }
       }, 100);
     });
-  }, 300);
-};
+  };
+})();
+
