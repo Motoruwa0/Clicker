@@ -69,7 +69,7 @@
         coinSpinSound.play();
 
         const fullSpins = 6 * 360;
-        const target = outcome === "orzel" ? 180 : 0;
+        const target = outcome === "orzel" ? 0 : 180;
         coinRotation = coinRotation - (coinRotation % 360) + fullSpins + target;
         coin.style.transform = `rotateY(${coinRotation}deg)`;
 
