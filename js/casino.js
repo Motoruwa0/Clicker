@@ -10,9 +10,9 @@
   const coinWinSound = new Audio("sounds/coin-win.mp3");
   const coinLoseSound = new Audio("sounds/coin-lose.mp3");
 
-  const slotSpinSound = new Audio("");
-  const slotWinSound = new Audio("");
-  const slotLoseSound = new Audio("");
+  const slotSpinSound = new Audio("sounds/slot-spin.mp3");
+  const slotWinSound = new Audio("sounds/slot-win.mp3");
+  const slotLoseSound = new Audio("sounds/slot-lose.mp3");
 
   coinSpinSound.volume = 0.6;
   coinWinSound.volume = 0.7;
@@ -119,12 +119,12 @@
     }
 
     const symbols = [
-        "\u{1F48E}",
-        "\u{1F34B}",
-        "\u{0037}\u{FE0F}\u{20E3}",
-        "\u{1F352}",
-        "\u{1F514}"
-      ];
+      "\u{1F48E}",
+      "\u{1F34B}",
+      "\u{0037}\u{FE0F}\u{20E3}",
+      "\u{1F352}",
+      "\u{1F514}"
+    ];
 
     playBtn.addEventListener("click", () => {
       if (slotIsSpinning) return;
@@ -188,7 +188,9 @@
             slotLoseSound.play();
           }
 
-          if (win > 0) applyWin(win);
+          if (win > 0) {
+            state.points += win;
+          }
           render();
           slotIsSpinning = false;
         }
@@ -196,3 +198,4 @@
     });
   };
 })();
+
