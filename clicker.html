@@ -58,47 +58,15 @@
   <div class="tab__inner">
     <div class="tab__content">
       <h1 class="stats__title">📊 Statystyki</h1>
-
       <div class="stats__grid">
-        <div class="stats__card">
-          <div class="stats__label">Kliknięcia</div>
-          <div class="stats__value" id="clickCount">0</div>
-        </div>
-
-        <div class="stats__card">
-          <div class="stats__label">Kupione ulepszenia</div>
-          <div class="stats__value" id="upgradeCount">0</div>
-        </div>
-
-        <div class="stats__card">
-          <div class="stats__label">Łącznie punktów</div>
-          <div class="stats__value" id="totalPoints">0</div>
-        </div>
-
-        <div class="stats__card">
-          <div class="stats__label">Punkty na sekundę</div>
-          <div class="stats__value" id="perSecondStats">0</div>
-        </div>
-
-        <div class="stats__card">
-          <div class="stats__label">Poziom</div>
-          <div class="stats__value" id="level">1</div>
-        </div>
-
-        <div class="stats__card">
-          <div class="stats__label">XP</div>
-          <div class="stats__value" id="xp">0 / 100</div>
-        </div>
-
-        <div class="stats__card">
-          <div class="stats__label">Rebirthy</div>
-          <div class="stats__value" id="rebirthStats">0</div>
-        </div>
-
-        <div class="stats__card">
-          <div class="stats__label">Mnożnik Rebirth</div>
-          <div class="stats__value" id="rebirthBonusStats">x1.00</div>
-        </div>
+        <div class="stats__card"><div class="stats__label">Kliknięcia</div><div class="stats__value" id="clickCount">0</div></div>
+        <div class="stats__card"><div class="stats__label">Kupione ulepszenia</div><div class="stats__value" id="upgradeCount">0</div></div>
+        <div class="stats__card"><div class="stats__label">Łącznie punktów</div><div class="stats__value" id="totalPoints">0</div></div>
+        <div class="stats__card"><div class="stats__label">Punkty na sekundę</div><div class="stats__value" id="perSecondStats">0</div></div>
+        <div class="stats__card"><div class="stats__label">Poziom</div><div class="stats__value" id="level">1</div></div>
+        <div class="stats__card"><div class="stats__label">XP</div><div class="stats__value" id="xp">0 / 100</div></div>
+        <div class="stats__card"><div class="stats__label">Rebirthy</div><div class="stats__value" id="rebirthStats">0</div></div>
+        <div class="stats__card"><div class="stats__label">Mnożnik Rebirth</div><div class="stats__value" id="rebirthBonusStats">x1.00</div></div>
       </div>
     </div>
   </div>
@@ -117,20 +85,10 @@
   <div class="tab__inner">
     <div class="tab__content">
       <h1 class="rebirth__title">🔥 Rebirth 🔥</h1>
-
       <div class="rebirth__content">
-        <p class="rebirth__cost">
-          Koszt: <strong id="rebirthCost">100 mln</strong> punktów
-        </p>
-
-        <p class="rebirth__info">
-          Rebirthy: <strong id="rebirthCount">0</strong><br>
-          Bonus: <strong id="rebirthBonus">x1.00</strong>
-        </p>
-
-        <button id="rebirthBtn" class="rebirth__button">
-          ♻️ REBIRTH
-        </button>
+        <p class="rebirth__cost">Koszt: <strong id="rebirthCost">100 mln</strong> punktów</p>
+        <p class="rebirth__info">Rebirthy: <strong id="rebirthCount">0</strong><br>Bonus: <strong id="rebirthBonus">x1.00</strong></p>
+        <button id="rebirthBtn" class="rebirth__button">♻️ REBIRTH</button>
       </div>
     </div>
   </div>
@@ -140,57 +98,31 @@
   <div class="tab__inner tab__inner--center">
     <div class="casino__content">
       <h1 class="casino__title">🔥 KASYNO 🔥</h1>
-
-      <button class="casino-btn" data-tab="casino-coinflip">
-        🎲 Rzut Monetą
-      </button>
-
-      <button class="casino-btn" data-tab="casino-slots">
-        🎰 Jednoręki Bandzior
-      </button>
+      <button class="casino-btn" data-tab="casino-coinflip">🎲 Rzut Monetą</button>
+      <button class="casino-btn" data-tab="casino-slots">🎰 Jednoręki Bandzior</button>
     </div>
   </div>
 </section>
 
 <section class="tab casino-coinflip" id="casino-coinflip">
   <div class="tab__inner tab__inner--center">
-
     <h1 class="casino__title">🎲 Rzut Monetą</h1>
-
     <div class="coinflip">
-
       <div class="coinflip__coin" id="coin">
         <img class="coin coin--front" src="images/orzeł.png">
         <img class="coin coin--back" src="images/reszka.png">
       </div>
-
       <div class="coinflip__controls">
-        <input
-          type="number"
-          id="coinflipBet"
-          class="coinflip__input"
-          placeholder="Stawka"
-          min="1"
-        />
-
+        <input type="number" id="coinflipBet" class="coinflip__input" placeholder="Stawka" min="1">
         <div class="coinflip__choices">
           <button class="coinflip__btn" data-choice="orzel">Orzeł</button>
           <button class="coinflip__btn" data-choice="reszka">Reszka</button>
         </div>
-
-        <button id="coinflipPlay" class="coinflip__play">
-          RZUĆ MONETĄ
-        </button>
+        <button id="coinflipPlay" class="coinflip__play">RZUĆ MONETĄ</button>
       </div>
-
       <div class="coinflip__result" id="coinflipResult"></div>
-
-      <button class="casino-btn" data-tab="casino">
-        ← Wróć do Kasyna
-      </button>
-
+      <button class="casino-btn" data-tab="casino">← Wróć do Kasyna</button>
     </div>
-
   </div>
 </section>
 
@@ -199,34 +131,25 @@
 
     <h1 class="casino__title">🎰 Jednoręki bandzior</h1>
 
-    <div class="slot">
-
+   <div class="slot slot-machine">
       <div class="slot__reels">
-        <div class="slot__reel" id="slotReel1">🍒</div>
-        <div class="slot__reel" id="slotReel2">🍋</div>
-        <div class="slot__reel" id="slotReel3">🔔</div>
+        <div class="slot__reel"><img id="slotReel1" src="images/slots/cherry.png"></div>
+        <div class="slot__reel"><img id="slotReel2" src="images/slots/lemon.png"></div>
+        <div class="slot__reel"><img id="slotReel3" src="images/slots/bell.png"></div>
       </div>
-
-<input
-  type="number"
-  id="slotBet"
-  class="slot__input coinflip__input"
-  placeholder="Stawka"
-  min="1"
-/>
-
-
-
-      <button id="slotPlay" class="casino-btn">
-        ZAKRĘĆ 🎰
-      </button>
-      <div id="slotResult" class="slot__result"></div>
-
-      <button class="casino-btn" data-tab="casino">
-        ← Wróć do Kasyna
-      </button>
-
     </div>
+
+    <input
+      type="number"
+      id="slotBet"
+      class="slot__input coinflip__input"
+      placeholder="Stawka"
+      min="1"
+    >
+
+    <button id="slotPlay" class="casino-btn">ZAKRĘĆ 🎰</button>
+    <div id="slotResult" class="slot__result"></div>
+    <button class="casino-btn" data-tab="casino">← Wróć do Kasyna</button>
 
   </div>
 </section>
