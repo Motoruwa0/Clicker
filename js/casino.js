@@ -53,8 +53,24 @@ window.initCoinflip = function () {
       coinSpinSound.currentTime = 0;
       coinSpinSound.play();
 
-      coinRotation += outcome === "orzel" ? 2160 : 2340;
+      const spins = 5 + Math.floor(Math.random() * 3); 
+      const extraRotation = spins * 360;
+
+      let targetRotation = coinRotation + extraRotation;
+
+    
+      const currentSide = targetRotation % 360;
+      const desiredSide = outcome === "orzel" ? 0 : 180;
+
+      let correction = desiredSide - currentSide;
+      if (correction < 0) correction += 360;
+
+      coinRotation = targetRotation + correction;
+
       coin.style.transform = `rotateY(${coinRotation}deg)`;
+
+
+
 
       setTimeout(() => {
         let message = "";
@@ -92,7 +108,7 @@ window.initCoinflip = function () {
 let slotsInitialized = false;
 let slotIsSpinning = false;
 
-/* AUDIO SLOTÓW */
+
 const slotSpinSound = new Audio("sounds/slot-spin.mp3");
 const slotWinSound = new Audio("sounds/slot-win.mp3");
 const slotLoseSound = new Audio("sounds/slot-lose.mp3");
@@ -188,7 +204,7 @@ window.initSlots = function () {
       }
     }, 100);
 
-    // failsafe
+    
     setTimeout(() => {
       slotIsSpinning = false;
     }, 3000);
