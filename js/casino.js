@@ -53,7 +53,9 @@ window.initCoinflip = function () {
       coinSpinSound.currentTime = 0;
       coinSpinSound.play();
 
-      coinRotation += outcome === "orzel" ? 2160 : 2340;
+      const fullSpins = 6 * 360;
+      const target = outcome === "orzel" ? 180 : 0;
+      coinRotation = coinRotation - (coinRotation % 360) + fullSpins + target;
       coin.style.transform = `rotateY(${coinRotation}deg)`;
 
       setTimeout(() => {
@@ -91,9 +93,9 @@ let slotsInitialized = false;
 
 const slotSpinSound = new Audio("sounds/slot-spin.mp3");
 const slotWinSound = new Audio("sounds/slot-win.mp3");
-const slotLoseSound = new Audio("sounds/slot-lose.mp3");
+const slotLoseSound = new Audio("sounds/coin-lose.mp3");
 
-slotSpinSound.volume = 0.5;
+slotSpinSound.volume = 0.9;
 slotWinSound.volume = 0.7;
 slotLoseSound.volume = 0.7;
 
@@ -109,7 +111,6 @@ window.initSlots = function () {
     const betInput = document.getElementById("slotBet");
     const playBtn = document.getElementById("slotPlay");
     const resultEl = document.getElementById("slotResult");
-    const autoBtn = document.getElementById("autoSpinBtn");
 
     if (!reel1 || !reel2 || !reel3 || !playBtn) {
       slotsInitialized = false;
@@ -126,11 +127,10 @@ window.initSlots = function () {
 
     playBtn.addEventListener("click", () => {
       const bet = Number(betInput.value);
+      resultEl.textContent = "";
+
       if (!bet || bet <= 0) return;
       if (state.points < bet) return;
-
-      isSpinning = true;
-      resultEl.textContent = "";
 
       state.points -= bet;
       render();
@@ -141,26 +141,15 @@ window.initSlots = function () {
       let spins = 0;
       const maxSpins = 12;
 
-      const spin1 = setInterval(() => {
+      const spinInterval = setInterval(() => {
         reel1.textContent = symbols[Math.floor(Math.random() * symbols.length)];
-      }, 140);
-
-      const spin2 = setInterval(() => {
         reel2.textContent = symbols[Math.floor(Math.random() * symbols.length)];
-      }, 100);
-
-      const spin3 = setInterval(() => {
         reel3.textContent = symbols[Math.floor(Math.random() * symbols.length)];
-      }, 70);
 
-      const stop = setInterval(() => {
-        steps++;
+        spins++;
 
-        if (steps >= maxSteps) {
-          clearInterval(spin1);
-          clearInterval(spin2);
-          clearInterval(spin3);
-          clearInterval(stop);
+        if (spins >= maxSpins) {
+          clearInterval(spinInterval);
 
           const r1 = reel1.textContent;
           const r2 = reel2.textContent;
@@ -185,11 +174,10 @@ window.initSlots = function () {
           }
 
           if (win > 0) {
-            applyWin(win);
+            state.points += win;
           }
 
           render();
-          isSpinning = false;
         }
       }, 100);
     });
