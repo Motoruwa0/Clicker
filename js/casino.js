@@ -10,17 +10,25 @@
   const coinWinSound = new Audio("sounds/coin-win.mp3");
   const coinLoseSound = new Audio("sounds/coin-lose.mp3");
 
-  const slotSpinSound = new Audio("");
-  const slotWinSound = new Audio("");
-  const slotLoseSound = new Audio("");
+  const slotSpinSound = new Audio("sounds/slot-spin.mp3");
+  const slotWinSound = new Audio("sounds/slot-win.mp3");
+  const slotLoseSound = new Audio("sounds/slot-lose.mp3");
 
   coinSpinSound.volume = 0.6;
   coinWinSound.volume = 0.7;
   coinLoseSound.volume = 0.7;
 
-  slotSpinSound.volume = 0.5;
+  slotSpinSound.volume = 0.6;
   slotWinSound.volume = 0.7;
   slotLoseSound.volume = 0.7;
+
+  const slotSymbols = [
+    "images/slots/cherry.png",
+    "images/slots/lemon.png",
+    "images/slots/seven.png",
+    "images/slots/grapes.png",
+    "images/slots/bell.png"
+  ];
 
   window.initCoinflip = function () {
     if (coinflipInitialized) return;
@@ -68,11 +76,9 @@
         coinSpinSound.currentTime = 0;
         coinSpinSound.play();
 
-        const spins = 5 + Math.floor(Math.random() * 3);
-        const base = spins * 360;
+        const fullSpins = 6 * 360;
         const target = outcome === "orzel" ? 0 : 180;
-
-        coinRotation = coinRotation - (coinRotation % 360) + base + target;
+        coinRotation = coinRotation - (coinRotation % 360) + fullSpins + target;
         coin.style.transform = `rotateY(${coinRotation}deg)`;
 
         setTimeout(() => {
@@ -93,13 +99,18 @@
             coinLoseSound.play();
           }
 
-          resultEl.innerHTML = `<div class="coinflip__message ${className}">${message}</div>`;
+          resultEl.innerHTML = `
+            <div class="coinflip__message ${className}">
+              ${message}
+            </div>
+          `;
+
           resultEl.classList.add("show");
           render();
           isFlipping = false;
         }, 2000);
       });
-    }, 300);
+    }, 350);
   };
 
   window.initSlots = function () {
@@ -112,63 +123,65 @@
     const betInput = document.getElementById("slotBet");
     const playBtn = document.getElementById("slotPlay");
     const resultEl = document.getElementById("slotResult");
+    const slotEl = document.querySelector(".slot");
 
-    if (!reel1 || !reel2 || !reel3 || !playBtn) {
+    if (!reel1 || !reel2 || !reel3 || !playBtn || !slotEl) {
       slotsInitialized = false;
       return;
     }
-
-    const symbols = [
-        "\u{1F48E}",
-        "\u{1F34B}",
-        "\u{0037}\u{FE0F}\u{20E3}",
-        "\u{1F352}",
-        "\u{1F514}"
-      ];
 
     playBtn.addEventListener("click", () => {
       if (slotIsSpinning) return;
 
       const bet = Number(betInput.value);
+      resultEl.textContent = "";
+
       if (!bet || bet <= 0) return;
       if (state.points < bet) return;
 
       slotIsSpinning = true;
-      resultEl.textContent = "";
-
       state.points -= bet;
       render();
 
       slotSpinSound.currentTime = 0;
       slotSpinSound.play();
 
-      let steps = 0;
-      const maxSteps = 12;
+      slotEl.classList.add("slot--spinning");
+      slotEl.classList.remove("slot--stop-1", "slot--stop-2", "slot--stop-3");
+
+      let spins = 0;
+      const maxSpins = 14;
 
       const spin1 = setInterval(() => {
-        reel1.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+        reel1.src = slotSymbols[Math.floor(Math.random() * slotSymbols.length)];
       }, 140);
 
       const spin2 = setInterval(() => {
-        reel2.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+        reel2.src = slotSymbols[Math.floor(Math.random() * slotSymbols.length)];
       }, 100);
 
       const spin3 = setInterval(() => {
-        reel3.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+        reel3.src = slotSymbols[Math.floor(Math.random() * slotSymbols.length)];
       }, 70);
 
       const stop = setInterval(() => {
-        steps++;
+        spins++;
 
-        if (steps >= maxSteps) {
+        if (spins === maxSpins - 4) slotEl.classList.add("slot--stop-1");
+        if (spins === maxSpins - 2) slotEl.classList.add("slot--stop-2");
+
+        if (spins >= maxSpins) {
           clearInterval(spin1);
           clearInterval(spin2);
           clearInterval(spin3);
           clearInterval(stop);
 
-          const r1 = reel1.textContent;
-          const r2 = reel2.textContent;
-          const r3 = reel3.textContent;
+          slotEl.classList.add("slot--stop-3");
+          slotEl.classList.remove("slot--spinning");
+
+          const r1 = reel1.src;
+          const r2 = reel2.src;
+          const r3 = reel3.src;
 
           let win = 0;
 
@@ -188,11 +201,12 @@
             slotLoseSound.play();
           }
 
-          if (win > 0) applyWin(win);
+          if (win > 0) state.points += win;
+
           render();
           slotIsSpinning = false;
         }
-      }, 100);
+      }, 120);
     });
   };
 })();
