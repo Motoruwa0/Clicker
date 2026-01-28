@@ -24,6 +24,8 @@ function render() {
   const casinoMoneyLostEl = document.getElementById("casinoMoneyLost");
   const slotMegaWinsEl = document.getElementById("slotMegaWins");
 
+  const casinoWinStreakEl = document.getElementById("casinoWinStreak");
+  const casinoLoseStreakEl = document.getElementById("casinoLoseStreak");
   const casinoBestWinStreakEl = document.getElementById("casinoBestWinStreak");
   const casinoBestLoseStreakEl = document.getElementById("casinoBestLoseStreak");
 
@@ -51,6 +53,8 @@ function render() {
   if (casinoMoneyLostEl) casinoMoneyLostEl.textContent = formatNumber(state.casinoMoneyLost);
   if (slotMegaWinsEl) slotMegaWinsEl.textContent = state.slotMegaWins;
 
+  if (casinoWinStreakEl) casinoWinStreakEl.textContent = state.casinoWinStreak;
+  if (casinoLoseStreakEl) casinoLoseStreakEl.textContent = state.casinoLoseStreak;
   if (casinoBestWinStreakEl) casinoBestWinStreakEl.textContent = state.casinoBestWinStreak;
   if (casinoBestLoseStreakEl) casinoBestLoseStreakEl.textContent = state.casinoBestLoseStreak;
 
@@ -135,30 +139,24 @@ function render() {
                 ? "Posiadany"
                 : (() => {
                     const req = [];
-
                     if (!hasRebirths) req.push(`Rebirthy: ${requiredRebirths}`);
                     if (!hasLevel) req.push(`Lvl: ${requiredLevel}`);
                     if (!hasMoney) req.push(`Brakuje ${formatNumber(skin.price - state.points)} pkt`);
-
                     return req.length
                       ? "Wymagane: " + req.join(" • ")
                       : formatNumber(skin.price) + " pkt";
                   })()
           }
         </p>
-        <button>
-          ${isActive ? "Aktywny" : owned ? "Załóż" : "Kup"}
-        </button>
+        <button>${isActive ? "Aktywny" : owned ? "Załóż" : "Kup"}</button>
       `;
 
       div.querySelector("button").onclick = () => {
         if (isDisabled) return;
-
         if (!owned) {
           state.points -= skin.price;
           state.ownedSkins.push(skin.id);
         }
-
         state.currentSkin = skin.id;
         render();
       };
