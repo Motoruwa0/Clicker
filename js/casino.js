@@ -156,18 +156,18 @@
 
   spin1 = setInterval(() => {
     reel1.src = slotSymbols[Math.floor(Math.random() * slotSymbols.length)];
-  }, 120);
+  }, 60);
 
   setTimeout(() => {
     spin2 = setInterval(() => {
       reel2.src = slotSymbols[Math.floor(Math.random() * slotSymbols.length)];
-    }, 120);
+    }, 60);
   }, 400);
 
   setTimeout(() => {
     spin3 = setInterval(() => {
       reel3.src = slotSymbols[Math.floor(Math.random() * slotSymbols.length)];
-    }, 120);
+    }, 60);
   }, 800);
 
   setTimeout(() => clearInterval(spin1), 2000);

@@ -3,7 +3,7 @@ const upgrades = [
   name: "💡 Lepszy kursor",
   type: "click",
   value: 1,
-  baseCost: 15,
+  baseCost: 50,
   count: 0,
   cps: 0,  
   requiredLevel: 1
