@@ -24,6 +24,9 @@ function render() {
   const casinoMoneyLostEl = document.getElementById("casinoMoneyLost");
   const slotMegaWinsEl = document.getElementById("slotMegaWins");
 
+  const casinoBestWinStreakEl = document.getElementById("casinoBestWinStreak");
+  const casinoBestLoseStreakEl = document.getElementById("casinoBestLoseStreak");
+
   if (pointsEl) pointsEl.textContent = formatNumber(state.points);
   if (pointsGameEl) pointsGameEl.textContent = formatNumber(state.points);
   if (perSecondGameEl) perSecondGameEl.textContent = state.perSecond;
@@ -48,6 +51,9 @@ function render() {
   if (casinoMoneyLostEl) casinoMoneyLostEl.textContent = formatNumber(state.casinoMoneyLost);
   if (slotMegaWinsEl) slotMegaWinsEl.textContent = state.slotMegaWins;
 
+  if (casinoBestWinStreakEl) casinoBestWinStreakEl.textContent = state.casinoBestWinStreak;
+  if (casinoBestLoseStreakEl) casinoBestLoseStreakEl.textContent = state.casinoBestLoseStreak;
+
   if (!state.currentSkin) state.currentSkin = "default";
   if (!state.ownedSkins.includes("default")) state.ownedSkins = ["default"];
 
@@ -70,18 +76,14 @@ function render() {
       const requiredRebirths = u.requiredRebirths || 0;
       const hasRebirths = state.rebirths >= requiredRebirths;
 
-      const canBuy =
-        state.points >= cost &&
-        hasLevel &&
-        hasRebirths;
+      const canBuy = state.points >= cost && hasLevel && hasRebirths;
 
       const div = document.createElement("div");
       div.className = "upgrade" + (canBuy ? "" : " upgrade--disabled");
 
-      const bonus =
-        u.type === "click"
-          ? `+${u.value} / klik`
-          : `+${u.cps} / s`;
+      const bonus = u.type === "click"
+        ? `+${u.value} / klik`
+        : `+${u.cps} / s`;
 
       div.innerHTML = `
         <div>${u.name}</div>

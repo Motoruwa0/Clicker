@@ -58,78 +58,26 @@
   <div class="tab__inner">
     <div class="tab__content">
       <h1 class="stats__title">📊 Statystyki</h1>
+
       <div class="stats__grid">
+        <div class="stats__card"><div class="stats__label">Kliknięcia</div><div class="stats__value" id="clickCount">0</div></div>
+        <div class="stats__card"><div class="stats__label">Kupione ulepszenia</div><div class="stats__value" id="upgradeCount">0</div></div>
+        <div class="stats__card"><div class="stats__label">Łącznie punktów</div><div class="stats__value" id="totalPoints">0</div></div>
+        <div class="stats__card"><div class="stats__label">Punkty / s</div><div class="stats__value" id="perSecondStats">0</div></div>
+        <div class="stats__card"><div class="stats__label">Poziom</div><div class="stats__value" id="level">1</div></div>
+        <div class="stats__card"><div class="stats__label">XP</div><div class="stats__value" id="xp">0</div></div>
+        <div class="stats__card"><div class="stats__label">Rebirthy</div><div class="stats__value" id="rebirthStats">0</div></div>
+        <div class="stats__card"><div class="stats__label">Bonus Rebirth</div><div class="stats__value" id="rebirthBonusStats">x1.00</div></div>
 
-        <div class="stats__card">
-          <div class="stats__label">Kliknięcia</div>
-          <div class="stats__value" id="clickCount">0</div>
-        </div>
+        <div class="stats__card"><div class="stats__label">Posiadane skiny</div><div class="stats__value" id="skinsOwned">0</div></div>
+        <div class="stats__card"><div class="stats__label">Wygrane w kasynie</div><div class="stats__value" id="casinoWins">0</div></div>
+        <div class="stats__card"><div class="stats__label">Przegrane w kasynie</div><div class="stats__value" id="casinoLosses">0</div></div>
+        <div class="stats__card"><div class="stats__label">Wygrana kasa</div><div class="stats__value" id="casinoMoneyWon">0</div></div>
+        <div class="stats__card"><div class="stats__label">Przegrana kasa</div><div class="stats__value" id="casinoMoneyLost">0</div></div>
+        <div class="stats__card"><div class="stats__label">MEGA BIG WIN</div><div class="stats__value" id="slotMegaWins">0</div></div>
 
-        <div class="stats__card">
-          <div class="stats__label">Kupione ulepszenia</div>
-          <div class="stats__value" id="upgradeCount">0</div>
-        </div>
-
-        <div class="stats__card">
-          <div class="stats__label">Łącznie punktów</div>
-          <div class="stats__value" id="totalPoints">0</div>
-        </div>
-
-        <div class="stats__card">
-          <div class="stats__label">Punkty / s</div>
-          <div class="stats__value" id="perSecondStats">0</div>
-        </div>
-
-        <div class="stats__card">
-          <div class="stats__label">Poziom</div>
-          <div class="stats__value" id="level">1</div>
-        </div>
-
-        <div class="stats__card">
-          <div class="stats__label">XP</div>
-          <div class="stats__value" id="xp">0</div>
-        </div>
-
-        <div class="stats__card">
-          <div class="stats__label">Rebirthy</div>
-          <div class="stats__value" id="rebirthStats">0</div>
-        </div>
-
-        <div class="stats__card">
-          <div class="stats__label">Bonus Rebirth</div>
-          <div class="stats__value" id="rebirthBonusStats">x1.00</div>
-        </div>
-
-        <div class="stats__card">
-          <div class="stats__label">Posiadane skiny</div>
-          <div class="stats__value" id="skinsOwned">0</div>
-        </div>
-
-        <div class="stats__card">
-          <div class="stats__label">Wygrane w kasynie</div>
-          <div class="stats__value" id="casinoWins">0</div>
-        </div>
-
-        <div class="stats__card">
-          <div class="stats__label">Przegrane w kasynie</div>
-          <div class="stats__value" id="casinoLosses">0</div>
-        </div>
-
-        <div class="stats__card">
-          <div class="stats__label">Wygrana kasa</div>
-          <div class="stats__value" id="casinoMoneyWon">0</div>
-        </div>
-
-        <div class="stats__card">
-          <div class="stats__label">Przegrana kasa</div>
-          <div class="stats__value" id="casinoMoneyLost">0</div>
-        </div>
-
-        <div class="stats__card">
-          <div class="stats__label">MEGA BIG WIN</div>
-          <div class="stats__value" id="slotMegaWins">0</div>
-        </div>
-
+        <div class="stats__card"><div class="stats__label">Best win streak</div><div class="stats__value" id="casinoBestWinStreak">0</div></div>
+        <div class="stats__card"><div class="stats__label">Best lose streak</div><div class="stats__value" id="casinoBestLoseStreak">0</div></div>
       </div>
     </div>
   </div>
@@ -149,25 +97,34 @@
     <div class="tab__content">
       <h1 class="rebirth__title">🔥 Rebirth 🔥</h1>
       <div class="rebirth__content">
-        <p class="rebirth__cost">
-          Koszt: <strong id="rebirthCost">100 mln</strong> punktów
-        </p>
-        <p class="rebirth__info">
-          Rebirthy: <strong id="rebirthCount">0</strong><br>
-          Bonus: <strong id="rebirthBonus">x1.00</strong>
-        </p>
+        <p class="rebirth__cost">Koszt: <strong id="rebirthCost">100 mln</strong> punktów</p>
+        <p class="rebirth__info">Rebirthy: <strong id="rebirthCount">0</strong><br>Bonus: <strong id="rebirthBonus">x1.00</strong></p>
         <button id="rebirthBtn" class="rebirth__button">♻️ REBIRTH</button>
       </div>
     </div>
   </div>
 </section>
 
+<!-- ===== KASYNO ===== -->
+
 <section class="tab casino" id="casino">
   <div class="tab__inner tab__inner--center">
     <div class="casino__content">
+
       <h1 class="casino__title">🔥 KASYNO 🔥</h1>
+
+      <div class="casino__streaks">
+        <div class="casino__streak win">
+          🔥 Win streak: <span id="casinoWinStreak">0</span>
+        </div>
+        <div class="casino__streak lose">
+          💀 Lose streak: <span id="casinoLoseStreak">0</span>
+        </div>
+      </div>
+
       <button class="casino-btn" data-tab="casino-coinflip">🎲 Rzut Monetą</button>
       <button class="casino-btn" data-tab="casino-slots">🎰 Jednoręki Bandzior</button>
+
     </div>
   </div>
 </section>
@@ -196,7 +153,6 @@
 
 <section class="tab casino-slots" id="casino-slots">
   <div class="tab__inner tab__inner--center">
-
     <h1 class="casino__title">🎰 Jednoręki bandzior</h1>
 
     <div class="slot slot-machine">
@@ -207,18 +163,10 @@
       </div>
     </div>
 
-    <input
-      type="number"
-      id="slotBet"
-      class="slot__input coinflip__input"
-      placeholder="Stawka"
-      min="1"
-    >
-
+    <input type="number" id="slotBet" class="slot__input coinflip__input" placeholder="Stawka" min="1">
     <button id="slotPlay" class="casino-btn">ZAKRĘĆ 🎰</button>
     <div id="slotResult" class="slot__result"></div>
     <button class="casino-btn" data-tab="casino">← Wróć do Kasyna</button>
-
   </div>
 </section>
 

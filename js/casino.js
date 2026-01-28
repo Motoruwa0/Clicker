@@ -91,6 +91,13 @@
             state.points += win;
             state.casinoWins += 1;
             state.casinoMoneyWon += win;
+
+            state.casinoWinStreak += 1;
+            state.casinoLoseStreak = 0;
+            if (state.casinoWinStreak > state.casinoBestWinStreak) {
+              state.casinoBestWinStreak = state.casinoWinStreak;
+            }
+
             addXP(2);
             message = `Wygrałeś ${win} Pomidorów`;
             className = "win";
@@ -98,6 +105,13 @@
             coinWinSound.play();
           } else {
             state.casinoLosses += 1;
+
+            state.casinoLoseStreak += 1;
+            state.casinoWinStreak = 0;
+            if (state.casinoLoseStreak > state.casinoBestLoseStreak) {
+              state.casinoBestLoseStreak = state.casinoLoseStreak;
+            }
+
             addXP(1);
             message = "Idziesz do gułagu";
             className = "lose";
@@ -129,9 +143,8 @@
     const betInput = document.getElementById("slotBet");
     const playBtn = document.getElementById("slotPlay");
     const resultEl = document.getElementById("slotResult");
-    const slotEl = document.querySelector(".slot");
 
-    if (!reel1 || !reel2 || !reel3 || !playBtn || !slotEl) {
+    if (!reel1 || !reel2 || !reel3 || !playBtn) {
       slotsInitialized = false;
       return;
     }
@@ -187,6 +200,13 @@
           state.casinoWins += 1;
           state.casinoMoneyWon += win;
           state.slotMegaWins += 1;
+
+          state.casinoWinStreak += 1;
+          state.casinoLoseStreak = 0;
+          if (state.casinoWinStreak > state.casinoBestWinStreak) {
+            state.casinoBestWinStreak = state.casinoWinStreak;
+          }
+
           addXP(2);
           resultEl.textContent = `MEGA BIG WIN +${win}`;
           slotWinSound.currentTime = 0;
@@ -195,12 +215,26 @@
           win = bet * 2;
           state.casinoWins += 1;
           state.casinoMoneyWon += win;
+
+          state.casinoWinStreak += 1;
+          state.casinoLoseStreak = 0;
+          if (state.casinoWinStreak > state.casinoBestWinStreak) {
+            state.casinoBestWinStreak = state.casinoWinStreak;
+          }
+
           addXP(2);
           resultEl.textContent = `Pomidorowa Wygrana +${win}`;
           slotWinSound.currentTime = 0;
           slotWinSound.play();
         } else {
           state.casinoLosses += 1;
+
+          state.casinoLoseStreak += 1;
+          state.casinoWinStreak = 0;
+          if (state.casinoLoseStreak > state.casinoBestLoseStreak) {
+            state.casinoBestLoseStreak = state.casinoLoseStreak;
+          }
+
           addXP(1);
           resultEl.textContent = "Idziesz do Gułagu";
           slotLoseSound.currentTime = 0;

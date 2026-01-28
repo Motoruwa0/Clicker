@@ -21,6 +21,10 @@ casinoLosses: 0,
 casinoMoneyWon: 0,
 casinoMoneyLost: 0,
 slotMegaWins: 0,
+casinoWinStreak: 0,
+casinoLoseStreak: 0,
+casinoBestWinStreak: 0,
+casinoBestLoseStreak: 0,
 
   _xpFromClicks: 0
 };
