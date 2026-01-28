@@ -16,5 +16,11 @@ const state = {
   rebirths: 0,
   rebirthBonus: 1,
 
+  casinoWins: 0,
+casinoLosses: 0,
+casinoMoneyWon: 0,
+casinoMoneyLost: 0,
+slotMegaWins: 0,
+
   _xpFromClicks: 0
 };

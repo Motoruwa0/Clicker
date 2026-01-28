@@ -69,6 +69,7 @@
         resultEl.innerHTML = "";
 
         state.points -= bet;
+        state.casinoMoneyLost += bet;
         render();
 
         const outcome = Math.random() < 0.5 ? "orzel" : "reszka";
@@ -85,22 +86,24 @@
           let message = "";
           let className = "";
 
-         if (outcome === selectedChoice) {
-          const win = bet * 2;
-          state.points += win;
-          addXP(10);
-          message = `Wygrałeś ${win} Pomidorów`;
-          className = "win";
-          coinWinSound.currentTime = 0;
-          coinWinSound.play();
-   } else {
-          addXP(1);
-          message = "Idziesz do gułagu";
-          className = "lose";
-          coinLoseSound.currentTime = 0;
-          coinLoseSound.play();
-     }
-
+          if (outcome === selectedChoice) {
+            const win = bet * 2;
+            state.points += win;
+            state.casinoWins += 1;
+            state.casinoMoneyWon += win;
+            addXP(2);
+            message = `Wygrałeś ${win} Pomidorów`;
+            className = "win";
+            coinWinSound.currentTime = 0;
+            coinWinSound.play();
+          } else {
+            state.casinoLosses += 1;
+            addXP(1);
+            message = "Idziesz do gułagu";
+            className = "lose";
+            coinLoseSound.currentTime = 0;
+            coinLoseSound.play();
+          }
 
           resultEl.innerHTML = `
             <div class="coinflip__message ${className}">
@@ -134,80 +137,81 @@
     }
 
     playBtn.addEventListener("click", () => {
-  if (slotIsSpinning) return;
+      if (slotIsSpinning) return;
 
-  const bet = Number(betInput.value);
-  resultEl.textContent = "";
+      const bet = Number(betInput.value);
+      resultEl.textContent = "";
 
-  if (!bet || bet <= 0) return;
-  if (state.points < bet) return;
+      if (!bet || bet <= 0) return;
+      if (state.points < bet) return;
 
-  slotIsSpinning = true;
-  state.points -= bet;
-  render();
+      slotIsSpinning = true;
+      state.points -= bet;
+      state.casinoMoneyLost += bet;
+      render();
 
-  slotSpinSound.currentTime = 0;
-  slotSpinSound.play();
+      slotSpinSound.currentTime = 0;
+      slotSpinSound.play();
 
-  slotEl.classList.add("slot--spinning");
-  slotEl.classList.remove("slot--stop-1", "slot--stop-2", "slot--stop-3");
+      let spin1, spin2, spin3;
 
-  let spin1, spin2, spin3;
+      spin1 = setInterval(() => {
+        reel1.src = slotSymbols[Math.floor(Math.random() * slotSymbols.length)];
+      }, 60);
 
-  spin1 = setInterval(() => {
-    reel1.src = slotSymbols[Math.floor(Math.random() * slotSymbols.length)];
-  }, 60);
+      setTimeout(() => {
+        spin2 = setInterval(() => {
+          reel2.src = slotSymbols[Math.floor(Math.random() * slotSymbols.length)];
+        }, 60);
+      }, 400);
 
-  setTimeout(() => {
-    spin2 = setInterval(() => {
-      reel2.src = slotSymbols[Math.floor(Math.random() * slotSymbols.length)];
-    }, 60);
-  }, 400);
+      setTimeout(() => {
+        spin3 = setInterval(() => {
+          reel3.src = slotSymbols[Math.floor(Math.random() * slotSymbols.length)];
+        }, 60);
+      }, 800);
 
-  setTimeout(() => {
-    spin3 = setInterval(() => {
-      reel3.src = slotSymbols[Math.floor(Math.random() * slotSymbols.length)];
-    }, 60);
-  }, 800);
+      setTimeout(() => clearInterval(spin1), 2000);
+      setTimeout(() => clearInterval(spin2), 2400);
+      setTimeout(() => clearInterval(spin3), 2800);
 
-  setTimeout(() => clearInterval(spin1), 2000);
-  setTimeout(() => clearInterval(spin2), 2400);
-  setTimeout(() => clearInterval(spin3), 2800);
+      setTimeout(() => {
+        const r1 = reel1.src;
+        const r2 = reel2.src;
+        const r3 = reel3.src;
 
-  setTimeout(() => {
-    slotEl.classList.remove("slot--spinning");
+        let win = 0;
 
-    const r1 = reel1.src;
-    const r2 = reel2.src;
-    const r3 = reel3.src;
+        if (r1 === r2 && r2 === r3) {
+          win = bet * 5;
+          state.casinoWins += 1;
+          state.casinoMoneyWon += win;
+          state.slotMegaWins += 1;
+          addXP(2);
+          resultEl.textContent = `MEGA BIG WIN +${win}`;
+          slotWinSound.currentTime = 0;
+          slotWinSound.play();
+        } else if (r1 === r2 || r2 === r3 || r1 === r3) {
+          win = bet * 2;
+          state.casinoWins += 1;
+          state.casinoMoneyWon += win;
+          addXP(2);
+          resultEl.textContent = `Pomidorowa Wygrana +${win}`;
+          slotWinSound.currentTime = 0;
+          slotWinSound.play();
+        } else {
+          state.casinoLosses += 1;
+          addXP(1);
+          resultEl.textContent = "Idziesz do Gułagu";
+          slotLoseSound.currentTime = 0;
+          slotLoseSound.play();
+        }
 
-    let win = 0;
+        if (win > 0) state.points += win;
 
-    if (r1 === r2 && r2 === r3) {
-      win = bet * 5;
-      addXP(2);
-      resultEl.textContent = `MEGA BIG WIN +${win}`;
-      slotWinSound.currentTime = 0;
-      slotWinSound.play();
-    } else if (r1 === r2 || r2 === r3 || r1 === r3) {
-      win = bet * 2;
-      addXP(2);
-      resultEl.textContent = `Pomidorowa Wygrana +${win}`;
-      slotWinSound.currentTime = 0;
-      slotWinSound.play();
-    } else {
-      addXP(1);
-      resultEl.textContent = "Idziesz do Gułagu";
-      slotLoseSound.currentTime = 0;
-      slotLoseSound.play();
-    }
-
-    if (win > 0) state.points += win;
-
-    render();
-    slotIsSpinning = false;
-  }, 3000);
-});
-
+        render();
+        slotIsSpinning = false;
+      }, 3000);
+    });
   };
 })();

@@ -17,6 +17,13 @@ function render() {
   const levelEl = document.getElementById("level");
   const xpEl = document.getElementById("xp");
 
+  const skinsOwnedEl = document.getElementById("skinsOwned");
+  const casinoWinsEl = document.getElementById("casinoWins");
+  const casinoLossesEl = document.getElementById("casinoLosses");
+  const casinoMoneyWonEl = document.getElementById("casinoMoneyWon");
+  const casinoMoneyLostEl = document.getElementById("casinoMoneyLost");
+  const slotMegaWinsEl = document.getElementById("slotMegaWins");
+
   if (pointsEl) pointsEl.textContent = formatNumber(state.points);
   if (pointsGameEl) pointsGameEl.textContent = formatNumber(state.points);
   if (perSecondGameEl) perSecondGameEl.textContent = state.perSecond;
@@ -34,6 +41,13 @@ function render() {
     `;
   }
 
+  if (skinsOwnedEl) skinsOwnedEl.textContent = state.ownedSkins.length;
+  if (casinoWinsEl) casinoWinsEl.textContent = state.casinoWins;
+  if (casinoLossesEl) casinoLossesEl.textContent = state.casinoLosses;
+  if (casinoMoneyWonEl) casinoMoneyWonEl.textContent = formatNumber(state.casinoMoneyWon);
+  if (casinoMoneyLostEl) casinoMoneyLostEl.textContent = formatNumber(state.casinoMoneyLost);
+  if (slotMegaWinsEl) slotMegaWinsEl.textContent = state.slotMegaWins;
+
   if (!state.currentSkin) state.currentSkin = "default";
   if (!state.ownedSkins.includes("default")) state.ownedSkins = ["default"];
 
@@ -48,18 +62,18 @@ function render() {
     upgradesContainer.innerHTML = "";
 
     upgrades.forEach((u, i) => {
-    const cost = Math.floor(u.baseCost * Math.pow(1.15, u.count));
+      const cost = Math.floor(u.baseCost * Math.pow(1.15, u.count));
 
-const requiredLevel = u.requiredLevel || 1;
-const hasLevel = state.level >= requiredLevel;
+      const requiredLevel = u.requiredLevel || 1;
+      const hasLevel = state.level >= requiredLevel;
 
-const requiredRebirths = u.requiredRebirths || 0;
-const hasRebirths = state.rebirths >= requiredRebirths;
+      const requiredRebirths = u.requiredRebirths || 0;
+      const hasRebirths = state.rebirths >= requiredRebirths;
 
-const canBuy =
-  state.points >= cost &&
-  hasLevel &&
-  hasRebirths;
+      const canBuy =
+        state.points >= cost &&
+        hasLevel &&
+        hasRebirths;
 
       const div = document.createElement("div");
       div.className = "upgrade" + (canBuy ? "" : " upgrade--disabled");
@@ -75,7 +89,8 @@ const canBuy =
           ${bonus}
           | Koszt: ${formatNumber(cost)}
           | Posiadane: ${u.count}
-          ${!hasLevel ? `| Wymagany lvl ${requiredLevel}` : ""}
+          ${!hasLevel ? ` | Wymagany lvl ${requiredLevel}` : ""}
+          ${!hasRebirths ? ` | Rebirthy: ${requiredRebirths}` : ""}
         </div>
       `;
 
@@ -111,43 +126,26 @@ const canBuy =
         <img src="${skin.img}">
         <h3>${skin.name}</h3>
         <p>
-  ${
-    isActive
-      ? "Założony"
-      : owned
-        ? "Posiadany"
-        : (() => {
-            const req = [];
-
-            if (!hasRebirths) {
-              req.push(`Rebirthy: ${requiredRebirths}`);
-            }
-
-            if (!hasLevel) {
-              req.push(`Lvl: ${requiredLevel}`);
-            }
-
-            if (!hasMoney) {
-              req.push(`Brakuje ${formatNumber(skin.price - state.points)} pkt`);
-            }
-
-            if (req.length > 0) {
-              return "Wymagane: " + req.join(" • ");
-            }
-
-            return formatNumber(skin.price) + " pkt";
-          })()
-  }
-</p>
-
-        <button>
           ${
             isActive
-              ? "Aktywny"
+              ? "Założony"
               : owned
-                ? "Załóż"
-                : "Kup"
+                ? "Posiadany"
+                : (() => {
+                    const req = [];
+
+                    if (!hasRebirths) req.push(`Rebirthy: ${requiredRebirths}`);
+                    if (!hasLevel) req.push(`Lvl: ${requiredLevel}`);
+                    if (!hasMoney) req.push(`Brakuje ${formatNumber(skin.price - state.points)} pkt`);
+
+                    return req.length
+                      ? "Wymagane: " + req.join(" • ")
+                      : formatNumber(skin.price) + " pkt";
+                  })()
           }
+        </p>
+        <button>
+          ${isActive ? "Aktywny" : owned ? "Załóż" : "Kup"}
         </button>
       `;
 
