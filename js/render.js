@@ -48,10 +48,18 @@ function render() {
     upgradesContainer.innerHTML = "";
 
     upgrades.forEach((u, i) => {
-      const cost = Math.floor(u.baseCost * Math.pow(1.15, u.count));
-      const requiredLevel = u.requiredLevel || 1;
-      const hasLevel = state.level >= requiredLevel;
-      const canBuy = state.points >= cost && hasLevel;
+    const cost = Math.floor(u.baseCost * Math.pow(1.15, u.count));
+
+const requiredLevel = u.requiredLevel || 1;
+const hasLevel = state.level >= requiredLevel;
+
+const requiredRebirths = u.requiredRebirths || 0;
+const hasRebirths = state.rebirths >= requiredRebirths;
+
+const canBuy =
+  state.points >= cost &&
+  hasLevel &&
+  hasRebirths;
 
       const div = document.createElement("div");
       div.className = "upgrade" + (canBuy ? "" : " upgrade--disabled");

@@ -85,19 +85,22 @@
           let message = "";
           let className = "";
 
-          if (outcome === selectedChoice) {
-            const win = bet * 2;
-            state.points += win;
-            message = `Wygrałeś ${win} Pomidorów`;
-            className = "win";
-            coinWinSound.currentTime = 0;
-            coinWinSound.play();
-          } else {
-            message = "Idziesz do gułagu";
-            className = "lose";
-            coinLoseSound.currentTime = 0;
-            coinLoseSound.play();
-          }
+         if (outcome === selectedChoice) {
+          const win = bet * 2;
+          state.points += win;
+          addXP(10);
+          message = `Wygrałeś ${win} Pomidorów`;
+          className = "win";
+          coinWinSound.currentTime = 0;
+          coinWinSound.play();
+   } else {
+          addXP(1);
+          message = "Idziesz do gułagu";
+          className = "lose";
+          coinLoseSound.currentTime = 0;
+          coinLoseSound.play();
+     }
+
 
           resultEl.innerHTML = `
             <div class="coinflip__message ${className}">
@@ -185,21 +188,25 @@
 
           let win = 0;
 
-          if (r1 === r2 && r2 === r3) {
-            win = bet * 5;
-            resultEl.textContent = `MEGA BIG WIN +${win}`;
-            slotWinSound.currentTime = 0;
-            slotWinSound.play();
-          } else if (r1 === r2 || r2 === r3 || r1 === r3) {
-            win = bet * 2;
-            resultEl.textContent = `Pomidorowa Wygrana +${win}`;
-            slotWinSound.currentTime = 0;
-            slotWinSound.play();
-          } else {
-            resultEl.textContent = "Idziesz do Gułagu";
-            slotLoseSound.currentTime = 0;
-            slotLoseSound.play();
-          }
+         if (r1 === r2 && r2 === r3) {
+  win = bet * 5;
+  addXP(50);
+  resultEl.textContent = `MEGA BIG WIN +${win}`;
+  slotWinSound.currentTime = 0;
+  slotWinSound.play();
+} else if (r1 === r2 || r2 === r3 || r1 === r3) {
+  win = bet * 2;
+  addXP(50);
+  resultEl.textContent = `Pomidorowa Wygrana +${win}`;
+  slotWinSound.currentTime = 0;
+  slotWinSound.play();
+} else {
+  addXP(1);
+  resultEl.textContent = "Idziesz do Gułagu";
+  slotLoseSound.currentTime = 0;
+  slotLoseSound.play();
+}
+
 
           if (win > 0) state.points += win;
 

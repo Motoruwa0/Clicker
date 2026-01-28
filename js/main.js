@@ -132,7 +132,6 @@ if (rebirthBtn) {
     doRebirth();
   });
 }
-
 function doRebirth() {
   const cost = getRebirthCost();
   state.points -= cost;
@@ -153,9 +152,6 @@ function doRebirth() {
   state._xpFromClicks = 0;
 
   upgrades.forEach(u => (u.count = 0));
-
-  state.currentSkin = "default";
-  state.ownedSkins = ["default"];
 
   saveGame();
   render();
