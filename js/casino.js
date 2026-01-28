@@ -134,86 +134,80 @@
     }
 
     playBtn.addEventListener("click", () => {
-      if (slotIsSpinning) return;
+  if (slotIsSpinning) return;
 
-      const bet = Number(betInput.value);
-      resultEl.textContent = "";
+  const bet = Number(betInput.value);
+  resultEl.textContent = "";
 
-      if (!bet || bet <= 0) return;
-      if (state.points < bet) return;
+  if (!bet || bet <= 0) return;
+  if (state.points < bet) return;
 
-      slotIsSpinning = true;
-      state.points -= bet;
-      render();
+  slotIsSpinning = true;
+  state.points -= bet;
+  render();
 
-      slotSpinSound.currentTime = 0;
-      slotSpinSound.play();
+  slotSpinSound.currentTime = 0;
+  slotSpinSound.play();
 
-      slotEl.classList.add("slot--spinning");
-      slotEl.classList.remove("slot--stop-1", "slot--stop-2", "slot--stop-3");
+  slotEl.classList.add("slot--spinning");
+  slotEl.classList.remove("slot--stop-1", "slot--stop-2", "slot--stop-3");
 
-      let spins = 0;
-      const maxSpins = 14;
+  let spin1, spin2, spin3;
 
-      const spin1 = setInterval(() => {
-        reel1.src = slotSymbols[Math.floor(Math.random() * slotSymbols.length)];
-      }, 140);
+  spin1 = setInterval(() => {
+    reel1.src = slotSymbols[Math.floor(Math.random() * slotSymbols.length)];
+  }, 120);
 
-      const spin2 = setInterval(() => {
-        reel2.src = slotSymbols[Math.floor(Math.random() * slotSymbols.length)];
-      }, 100);
+  setTimeout(() => {
+    spin2 = setInterval(() => {
+      reel2.src = slotSymbols[Math.floor(Math.random() * slotSymbols.length)];
+    }, 120);
+  }, 400);
 
-      const spin3 = setInterval(() => {
-        reel3.src = slotSymbols[Math.floor(Math.random() * slotSymbols.length)];
-      }, 70);
+  setTimeout(() => {
+    spin3 = setInterval(() => {
+      reel3.src = slotSymbols[Math.floor(Math.random() * slotSymbols.length)];
+    }, 120);
+  }, 800);
 
-      const stop = setInterval(() => {
-        spins++;
+  setTimeout(() => clearInterval(spin1), 2000);
+  setTimeout(() => clearInterval(spin2), 2400);
+  setTimeout(() => clearInterval(spin3), 2800);
 
-        if (spins === maxSpins - 4) slotEl.classList.add("slot--stop-1");
-        if (spins === maxSpins - 2) slotEl.classList.add("slot--stop-2");
+  setTimeout(() => {
+    slotEl.classList.remove("slot--spinning");
 
-        if (spins >= maxSpins) {
-          clearInterval(spin1);
-          clearInterval(spin2);
-          clearInterval(spin3);
-          clearInterval(stop);
+    const r1 = reel1.src;
+    const r2 = reel2.src;
+    const r3 = reel3.src;
 
-          slotEl.classList.add("slot--stop-3");
-          slotEl.classList.remove("slot--spinning");
+    let win = 0;
 
-          const r1 = reel1.src;
-          const r2 = reel2.src;
-          const r3 = reel3.src;
+    if (r1 === r2 && r2 === r3) {
+      win = bet * 5;
+      addXP(2);
+      resultEl.textContent = `MEGA BIG WIN +${win}`;
+      slotWinSound.currentTime = 0;
+      slotWinSound.play();
+    } else if (r1 === r2 || r2 === r3 || r1 === r3) {
+      win = bet * 2;
+      addXP(2);
+      resultEl.textContent = `Pomidorowa Wygrana +${win}`;
+      slotWinSound.currentTime = 0;
+      slotWinSound.play();
+    } else {
+      addXP(1);
+      resultEl.textContent = "Idziesz do Gułagu";
+      slotLoseSound.currentTime = 0;
+      slotLoseSound.play();
+    }
 
-          let win = 0;
+    if (win > 0) state.points += win;
 
-         if (r1 === r2 && r2 === r3) {
-  win = bet * 5;
-  addXP(50);
-  resultEl.textContent = `MEGA BIG WIN +${win}`;
-  slotWinSound.currentTime = 0;
-  slotWinSound.play();
-} else if (r1 === r2 || r2 === r3 || r1 === r3) {
-  win = bet * 2;
-  addXP(50);
-  resultEl.textContent = `Pomidorowa Wygrana +${win}`;
-  slotWinSound.currentTime = 0;
-  slotWinSound.play();
-} else {
-  addXP(1);
-  resultEl.textContent = "Idziesz do Gułagu";
-  slotLoseSound.currentTime = 0;
-  slotLoseSound.play();
-}
+    render();
+    slotIsSpinning = false;
+  }, 3000);
+});
 
-
-          if (win > 0) state.points += win;
-
-          render();
-          slotIsSpinning = false;
-        }
-      }, 120);
-    });
   };
 })();
