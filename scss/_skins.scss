@@ -1,0 +1,85 @@
+.skins {
+  padding: 40px 0;
+
+  
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+}
+
+
+.skins__title {
+  font-size: 48px;
+  color: #f5c542;
+  letter-spacing: 2px;
+}
+
+
+.skins__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+
+
+.skin-card {
+  background: #1a1a1a;
+  border-radius: 18px;
+  padding: 20px;
+
+  text-align: center;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.4);
+}
+.skin-card button {
+  margin-top: 10px;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  background: #f5c542;
+  cursor: pointer;
+  font-weight: bold;
+
+  transition: transform 0.08s ease, box-shadow 0.08s ease;
+}
+
+
+.skin-card button:active {
+  transform: scale(0.92);
+  box-shadow: 0 0 15px rgba(245, 197, 66, 0.9);
+}
+
+.skin-card img {
+  max-width: 160px;
+  max-height: 160px;
+
+  width: auto;
+  height: auto;
+
+  object-fit: contain;
+  display: block;
+  margin: 0 auto 15px;
+
+  pointer-events: none;
+}
+
+
+.skin-card h3 {
+  margin: 10px 0;
+}
+
+.skin-card button {
+  margin-top: 10px;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  background: #f5c542;
+  cursor: pointer;
+  font-weight: bold;
+}
+.skin-card--disabled img {
+  filter: grayscale(100%);
+}
